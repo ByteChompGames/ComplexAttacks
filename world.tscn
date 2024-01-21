@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://bfh6w2ybc4sku"]
+[gd_scene load_steps=2 format=3 uid="uid://bfh6w2ybc4sku"]
+
+[ext_resource type="PackedScene" uid="uid://c0kdapa3xmyei" path="res://Character/attack_character.tscn" id="1_mgxm6"]
 
 [node name="World" type="Node2D"]
+
+[node name="AttackCharacter" parent="." instance=ExtResource("1_mgxm6")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(6, 6)

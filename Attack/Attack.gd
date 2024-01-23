@@ -36,6 +36,10 @@ func _physics_process(delta):
 		
 		if current_force < 0:
 			current_force = 0
+	elif state == AttackState.RECOVER:
+		if attack_pool.attack_buffered:
+			attack_pool.perform_attack()
+			state = AttackState.OFF
 
 # start the attack by entering into the wind-up animation.
 func start_attack():

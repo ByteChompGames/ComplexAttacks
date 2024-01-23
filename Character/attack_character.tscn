@@ -701,7 +701,7 @@ wait_time = 1.25
 one_shot = true
 
 [node name="AttackBuffer" type="Timer" parent="AttackPool"]
-wait_time = 0.25
+wait_time = 0.5
 one_shot = true
 
 [node name="OverheadAttack" parent="AttackPool" instance=ExtResource("4_7nxov")]

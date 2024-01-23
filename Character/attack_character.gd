@@ -22,16 +22,17 @@ func _ready():
 	character_sprite.play()
 
 func _physics_process(delta):
-	print(attack_pool.attack_buffered)
-	
 	var input = move_input()
 	match state:
 		CharacterState.IDLE:
+			
 			set_character_animation("char_idle")
+			
 			if input != 0:
 				state = CharacterState.MOVE
 			return
 		CharacterState.MOVE:
+			
 			set_character_animation("char_run")
 			var move_direction = Vector2.RIGHT * input
 			move_character(self, move_direction, move_speed)

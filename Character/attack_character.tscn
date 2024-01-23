@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://c0kdapa3xmyei"]
+[gd_scene load_steps=21 format=3 uid="uid://c0kdapa3xmyei"]
 
 [ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Character/character_sprite.tscn" id="1_5djjb"]
 [ext_resource type="Script" path="res://Character/attack_character.gd" id="1_yn12m"]
 [ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Character/Attack_Character_Sheet.png" id="2_567to"]
 [ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="4_7nxov"]
+[ext_resource type="Script" path="res://Attack/AttackPool.gd" id="4_m3ua5"]
 [ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="5_siix8"]
 [ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="6_r3ykh"]
 
@@ -157,7 +158,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Attacks/OverheadAttack")
+tracks/4/path = NodePath("AttackPool/OverheadAttack")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -171,7 +172,7 @@ tracks/4/keys = {
 tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Attacks/StabAttack")
+tracks/5/path = NodePath("AttackPool/StabAttack")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -638,7 +639,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Attacks/SwingAttack")
+tracks/4/path = NodePath("AttackPool/SwingAttack")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -691,24 +692,23 @@ libraries = {
 "": SubResource("AnimationLibrary_c6b67")
 }
 
-[node name="Attacks" type="Node2D" parent="."]
+[node name="AttackPool" type="Node2D" parent="." node_paths=PackedStringArray("character_animations")]
+script = ExtResource("4_m3ua5")
+character_animations = NodePath("../CharacterAnimations")
 
-[node name="OverheadAttack" parent="Attacks" node_paths=PackedStringArray("character_animations") instance=ExtResource("4_7nxov")]
-character_animations = NodePath("../../CharacterAnimations")
-
-[node name="StabAttack" parent="Attacks" node_paths=PackedStringArray("character_animations") instance=ExtResource("5_siix8")]
-character_animations = NodePath("../../CharacterAnimations")
-
-[node name="SwingAttack" parent="Attacks" node_paths=PackedStringArray("character_animations") instance=ExtResource("6_r3ykh")]
-character_animations = NodePath("../../CharacterAnimations")
-
-[node name="AttackBuffer" type="Timer" parent="."]
-wait_time = 0.25
-one_shot = true
-
-[node name="ComboTimer" type="Timer" parent="."]
+[node name="ComboTimer" type="Timer" parent="AttackPool"]
 wait_time = 1.25
 one_shot = true
 
-[connection signal="timeout" from="AttackBuffer" to="." method="_on_attack_buffer_timeout"]
-[connection signal="timeout" from="ComboTimer" to="." method="_on_combo_timer_timeout"]
+[node name="AttackBuffer" type="Timer" parent="AttackPool"]
+wait_time = 0.25
+one_shot = true
+
+[node name="OverheadAttack" parent="AttackPool" instance=ExtResource("4_7nxov")]
+
+[node name="StabAttack" parent="AttackPool" instance=ExtResource("5_siix8")]
+
+[node name="SwingAttack" parent="AttackPool" instance=ExtResource("6_r3ykh")]
+
+[connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
+[connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]

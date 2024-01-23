@@ -11,8 +11,6 @@ enum AttackState
 
 @export var state = AttackState.OFF
 
-@export var character_animations : AnimationPlayer
-
 @export var wind_up_anim_name : String = ""
 @export var action_anim_name : String = ""
 @export var recover_anim_name : String = ""
@@ -20,10 +18,16 @@ enum AttackState
 @export var attack_move_force : float = 1
 @export var attack_deceleration: float = 2
 
+var attack_pool : AttackPool
+var character_animations : AnimationPlayer
 var current_force : float = 0
 
 @onready var windup_timer = $WindupTime
 @onready var follow_through_timer = $FollowThroughTime
+
+func initialize(pool : AttackPool, animation_player : AnimationPlayer):
+	character_animations = animation_player
+	attack_pool = pool
 
 func _physics_process(delta):
 	if state == AttackState.ACTION:
@@ -39,7 +43,6 @@ func start_attack():
 	character_animations.play(wind_up_anim_name)
 	windup_timer.start();
 	state = AttackState.WINDUP
-	owner.set_state(2)
 
 # perform the attack action once the wind-up is complete.
 func _on_windup_time_timeout():
@@ -50,9 +53,9 @@ func _on_windup_time_timeout():
 
 # recover from the attack action once the follow-through is complete.
 func _on_follow_through_time_timeout():
-	if owner.attack_buffered:
+	if attack_pool.attack_buffered:
 		state = AttackState.OFF
-		owner.perform_attack()
+		attack_pool.perform_attack()
 	else:
 		character_animations.play(recover_anim_name)
 		state = AttackState.RECOVER

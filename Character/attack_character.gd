@@ -11,21 +11,19 @@ enum CharacterState
 
 @export var move_speed : float = 100
 
-var attackCount : int = 0
-var comboCount : int = 0
-var attack_buffered : bool = false
 
 @onready var character_sprite = $CharacterSprite
 @onready var character_animations = $CharacterAnimations
-@onready var attacks = $Attacks
-@onready var attack_buffer = $AttackBuffer
-@onready var combo_timer = $ComboTimer
+@onready var attack_pool = $AttackPool
+
+
 
 func _ready():
 	character_sprite.play()
-	attackCount = attacks.get_child_count()
 
 func _physics_process(delta):
+	print(attack_pool.attack_buffered)
+	
 	var input = move_input()
 	match state:
 		CharacterState.IDLE:
@@ -47,30 +45,9 @@ func _physics_process(delta):
 func _input(event):
 	if event.is_action_pressed("attack"):
 		if state != CharacterState.ATTACK:
-			perform_attack()
+			attack_pool.perform_attack()
 		else:
-			attack_buffer.start()
-			attack_buffered = true
-
-func perform_attack():
-	if attack_buffered:
-		attack_buffer.stop()
-		attack_buffered = false
-	
-	combo_timer.stop()
-	var attack = get_attack()
-	attack.start_attack()
-	update_combo()
-	combo_timer.start()
-
-func get_attack() -> Attack:
-	var selected_attack = attacks.get_child(comboCount)
-	return selected_attack
-
-func update_combo():
-	comboCount += 1
-	if comboCount >= attackCount:
-		comboCount = 0
+			attack_pool.buffer_attack()
 
 func flip_direction(input):
 	if input > 0:
@@ -98,13 +75,3 @@ func set_character_animation(animation : String):
 
 func set_state(stateID : int):
 	state = stateID
-
-func _on_attack_buffer_timeout():
-	attack_buffered = false
-	
-	if state != CharacterState.ATTACK:
-		perform_attack()
-
-
-func _on_combo_timer_timeout():
-	comboCount = 0

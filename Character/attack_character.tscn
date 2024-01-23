@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://c0kdapa3xmyei"]
+[gd_scene load_steps=20 format=3 uid="uid://c0kdapa3xmyei"]
 
 [ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Character/character_sprite.tscn" id="1_5djjb"]
 [ext_resource type="Script" path="res://Character/attack_character.gd" id="1_yn12m"]
 [ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Character/Attack_Character_Sheet.png" id="2_567to"]
 [ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="4_7nxov"]
 [ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="5_siix8"]
+[ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="6_r3ykh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
@@ -463,6 +464,192 @@ tracks/4/keys = {
 "values": [1.5708]
 }
 
+[sub_resource type="Animation" id="Animation_hsamv"]
+resource_name = "char_swing_windup"
+length = 0.333342
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_windup"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-1, 0), Vector2(0, 0), Vector2(-1, 0), Vector2(0, 0), Vector2(-1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterSprite/Weapon:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(14, 6)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterSprite/Weapon:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_ym0xp"]
+resource_name = "char_swing_action"
+length = 0.333342
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"attack_action", &"attack_followthrough"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite/Weapon:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(14, 6), Vector2(9, -7), Vector2(-4, -14), Vector2(-5, -14), Vector2(-4, -14)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterSprite/Weapon:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1.5708, 0.785398, 0.0, 0.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5vbwn"]
+resource_name = "char_swing_recover"
+length = 0.250008
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_followthrough"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite/Weapon:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(-4, -14), Vector2(-6, -9), Vector2(-8, -5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterSprite/Weapon:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Attacks/SwingAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_attack"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c6b67"]
 _data = {
 "RESET": SubResource("Animation_a3f5h"),
@@ -472,7 +659,10 @@ _data = {
 "char_idle": SubResource("Animation_a2dxk"),
 "char_run": SubResource("Animation_j6r6c"),
 "char_stab_action": SubResource("Animation_t0qdi"),
-"char_stab_windup": SubResource("Animation_tb1qr")
+"char_stab_windup": SubResource("Animation_tb1qr"),
+"char_swing_action": SubResource("Animation_ym0xp"),
+"char_swing_recover": SubResource("Animation_5vbwn"),
+"char_swing_windup": SubResource("Animation_hsamv")
 }
 
 [node name="AttackCharacter" type="CharacterBody2D"]
@@ -490,7 +680,6 @@ autoplay = "run"
 [node name="Weapon" type="Sprite2D" parent="CharacterSprite"]
 texture_filter = 1
 position = Vector2(-8, -7)
-rotation = -0.785398
 texture = ExtResource("2_567to")
 region_enabled = true
 region_rect = Rect2(36, 37, 8, 22)
@@ -510,8 +699,16 @@ character_animations = NodePath("../../CharacterAnimations")
 [node name="StabAttack" parent="Attacks" node_paths=PackedStringArray("character_animations") instance=ExtResource("5_siix8")]
 character_animations = NodePath("../../CharacterAnimations")
 
+[node name="SwingAttack" parent="Attacks" node_paths=PackedStringArray("character_animations") instance=ExtResource("6_r3ykh")]
+character_animations = NodePath("../../CharacterAnimations")
+
 [node name="AttackBuffer" type="Timer" parent="."]
-wait_time = 0.15
+wait_time = 0.25
+one_shot = true
+
+[node name="ComboTimer" type="Timer" parent="."]
+wait_time = 1.25
 one_shot = true
 
 [connection signal="timeout" from="AttackBuffer" to="." method="_on_attack_buffer_timeout"]
+[connection signal="timeout" from="ComboTimer" to="." method="_on_combo_timer_timeout"]

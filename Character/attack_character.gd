@@ -19,6 +19,7 @@ var attack_buffered : bool = false
 @onready var character_animations = $CharacterAnimations
 @onready var attacks = $Attacks
 @onready var attack_buffer = $AttackBuffer
+@onready var combo_timer = $ComboTimer
 
 func _ready():
 	character_sprite.play()
@@ -44,20 +45,23 @@ func _physics_process(delta):
 			return
 
 func _input(event):
-	if event.is_action_pressed("attack") and state != CharacterState.ATTACK:
-		perform_attack()
-	elif state == CharacterState.ATTACK:
-		attack_buffer.start()
-		attack_buffered = true
+	if event.is_action_pressed("attack"):
+		if state != CharacterState.ATTACK:
+			perform_attack()
+		else:
+			attack_buffer.start()
+			attack_buffered = true
 
 func perform_attack():
 	if attack_buffered:
 		attack_buffer.stop()
 		attack_buffered = false
 	
+	combo_timer.stop()
 	var attack = get_attack()
 	attack.start_attack()
 	update_combo()
+	combo_timer.start()
 
 func get_attack() -> Attack:
 	var selected_attack = attacks.get_child(comboCount)
@@ -100,3 +104,7 @@ func _on_attack_buffer_timeout():
 	
 	if state != CharacterState.ATTACK:
 		perform_attack()
+
+
+func _on_combo_timer_timeout():
+	comboCount = 0

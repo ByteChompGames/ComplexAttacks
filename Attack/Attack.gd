@@ -21,14 +21,9 @@ var current_force : float = 0
 @onready var windup_timer = $WindupTime
 @onready var follow_through_timer = $FollowThroughTime
 
-func _process(delta):
-	if state == AttackState.OFF:
-		if character_animations.current_animation != "char_idle":
-			character_animations.play("char_idle")
-
 func _physics_process(delta):
 	if state == AttackState.ACTION:
-		owner.move_character(owner, Vector2.RIGHT, current_force)
+		owner.move_character(owner, owner.get_direction(), current_force)
 		current_force -= attack_deceleration * delta
 		
 		if current_force < 0:

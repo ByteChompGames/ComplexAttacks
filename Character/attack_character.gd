@@ -3,6 +3,7 @@ class_name AttackCharacter
 
 enum CharacterState
 {
+	IDLE,
 	MOVE,
 	ATTACK
 }
@@ -18,16 +19,20 @@ func _ready():
 	character_sprite.play()
 
 func _physics_process(delta):
-	
+	var input = move_input()
 	match state:
+		CharacterState.IDLE:
+			set_character_animation("char_idle")
+			if input != 0:
+				state = CharacterState.MOVE
+			return
 		CharacterState.MOVE:
-			var input = move_input()
+			set_character_animation("char_run")
 			var move_direction = Vector2.RIGHT * input
 			move_character(self, move_direction, move_speed)
-			if input != 0:
-				set_character_animation("char_run")
-			else:
-				set_character_animation("char_idle")
+			flip_direction(input);
+			if input == 0:
+				state = CharacterState.IDLE
 			return
 		CharacterState.ATTACK:
 			return
@@ -36,6 +41,14 @@ func _input(event):
 	if event.is_action_pressed("attack"):
 		attack.start_attack()
 
+func flip_direction(input):
+	if input > 0:
+		character_sprite.scale.x = 1
+	if input < 0:
+		character_sprite.scale.x = -1
+
+func get_direction() -> Vector2:
+	return Vector2.RIGHT * character_sprite.scale.x
 
 func move_input() -> float:
 	var input = 0
@@ -50,6 +63,7 @@ func set_character_animation(animation : String):
 	if character_animations.current_animation == animation: return
 	else:
 		character_animations.current_animation = animation
+		character_sprite.play()
 
 func set_state(stateID : int):
 	state = stateID

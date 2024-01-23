@@ -13,6 +13,10 @@ enum AttackState
 
 @export var character_animations : AnimationPlayer
 
+@export var wind_up_anim_name : String = ""
+@export var action_anim_name : String = ""
+@export var recover_anim_name : String = ""
+
 @export var attack_move_force : float = 1
 @export var attack_deceleration: float = 2
 
@@ -32,21 +36,21 @@ func _physics_process(delta):
 # start the attack by entering into the wind-up animation.
 func start_attack():
 	if state != AttackState.OFF: return
-	character_animations.play("char_attack_windup")
+	character_animations.play(wind_up_anim_name)
 	windup_timer.start();
 	state = AttackState.WINDUP
 	owner.set_state(2)
 
 # perform the attack action once the wind-up is complete.
 func _on_windup_time_timeout():
-	character_animations.play("char_attack_action")
+	character_animations.play(action_anim_name)
 	follow_through_timer.start()
 	state = AttackState.ACTION
 	current_force = attack_move_force
 
 # recover from the attack action once the follow-through is complete.
 func _on_follow_through_time_timeout():
-	character_animations.play("char_attack_recover")
+	character_animations.play(recover_anim_name)
 	state = AttackState.RECOVER
 	current_force = 0
 

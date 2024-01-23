@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7suy2korl7rn"]
+
+[ext_resource type="Script" path="res://Attack/Attack.gd" id="1_4r8sk"]
+
+[node name="Attack" type="Node2D" node_paths=PackedStringArray("character_animations")]
+script = ExtResource("1_4r8sk")
+character_animations = NodePath("")
+attack_move_force = 50.0
+attack_deceleration = 100.0
+
+[node name="WindupTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="FollowThroughTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="WindupTime" to="." method="_on_windup_time_timeout"]
+[connection signal="timeout" from="FollowThroughTime" to="." method="_on_follow_through_time_timeout"]

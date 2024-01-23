@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://da1ae740kxrni"]
+
+[ext_resource type="Script" path="res://Attack/Attack.gd" id="1_aymo5"]
+
+[node name="OverheadAttack" type="Node2D" node_paths=PackedStringArray("character_animations")]
+script = ExtResource("1_aymo5")
+character_animations = NodePath("")
+wind_up_anim_name = "char_attack_windup"
+action_anim_name = "char_attack_action"
+recover_anim_name = "char_attack_recover"
+attack_move_force = 50.0
+attack_deceleration = 100.0
+
+[node name="WindupTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="FollowThroughTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="WindupTime" to="." method="_on_windup_time_timeout" flags=18]
+[connection signal="timeout" from="FollowThroughTime" to="." method="_on_follow_through_time_timeout" flags=18]

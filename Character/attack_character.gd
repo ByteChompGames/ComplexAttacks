@@ -13,10 +13,12 @@ enum CharacterState
 
 var attackCount : int = 0
 var comboCount : int = 0
+var attack_buffered : bool = false
 
 @onready var character_sprite = $CharacterSprite
 @onready var character_animations = $CharacterAnimations
 @onready var attacks = $Attacks
+@onready var attack_buffer = $AttackBuffer
 
 func _ready():
 	character_sprite.play()
@@ -43,10 +45,19 @@ func _physics_process(delta):
 
 func _input(event):
 	if event.is_action_pressed("attack") and state != CharacterState.ATTACK:
-		var attack = get_attack()
-		attack.start_attack()
-		update_combo()
-		print(comboCount, attackCount)
+		perform_attack()
+	elif state == CharacterState.ATTACK:
+		attack_buffer.start()
+		attack_buffered = true
+
+func perform_attack():
+	if attack_buffered:
+		attack_buffer.stop()
+		attack_buffered = false
+	
+	var attack = get_attack()
+	attack.start_attack()
+	update_combo()
 
 func get_attack() -> Attack:
 	var selected_attack = attacks.get_child(comboCount)
@@ -83,3 +94,9 @@ func set_character_animation(animation : String):
 
 func set_state(stateID : int):
 	state = stateID
+
+func _on_attack_buffer_timeout():
+	attack_buffered = false
+	
+	if state != CharacterState.ATTACK:
+		perform_attack()

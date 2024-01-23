@@ -50,9 +50,13 @@ func _on_windup_time_timeout():
 
 # recover from the attack action once the follow-through is complete.
 func _on_follow_through_time_timeout():
-	character_animations.play(recover_anim_name)
-	state = AttackState.RECOVER
-	current_force = 0
+	if owner.attack_buffered:
+		owner.perform_attack()
+		state = AttackState.OFF
+	else:
+		character_animations.play(recover_anim_name)
+		state = AttackState.RECOVER
+		current_force = 0
 
 func end_attack():
 	owner.set_state(0)

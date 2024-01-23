@@ -1,10 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfh6w2ybc4sku"]
+[gd_scene load_steps=3 format=3 uid="uid://bfh6w2ybc4sku"]
 
+[ext_resource type="PackedScene" uid="uid://cgfuvj6noq2t0" path="res://Environment/ground_tile_map.tscn" id="1_b5sbi"]
 [ext_resource type="PackedScene" uid="uid://c0kdapa3xmyei" path="res://Character/attack_character.tscn" id="1_mgxm6"]
 
 [node name="World" type="Node2D"]
 
+[node name="Ground_TileMap" parent="." instance=ExtResource("1_b5sbi")]
+position = Vector2(0, -7)
+layer_0/tile_data = PackedInt32Array(131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 131066, 0, 0, 131065, 0, 0, 131064, 0, 0, 65543, 0, 0, 196600, 0, 1, 196601, 0, 1, 196602, 0, 1, 196603, 0, 1, 196604, 0, 1, 196605, 0, 1, 196606, 0, 1, 196607, 0, 1, 131072, 0, 1, 131073, 0, 1, 131074, 0, 1, 131075, 0, 1, 131076, 0, 1, 131077, 0, 1, 131078, 0, 1, 131079, 0, 1, 262136, 0, 2, 262137, 0, 2, 262138, 0, 2, 262139, 0, 2, 262140, 0, 2, 262141, 0, 2, 262142, 0, 2, 262143, 0, 2, 196608, 0, 2, 196609, 0, 2, 196610, 0, 2, 196611, 0, 2, 196612, 0, 2, 196613, 0, 2, 196614, 0, 2, 196615, 0, 2)
+
 [node name="AttackCharacter" parent="." instance=ExtResource("1_mgxm6")]
+position = Vector2(0, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(6, 6)
+position = Vector2(0, -28)
+zoom = Vector2(5, 5)

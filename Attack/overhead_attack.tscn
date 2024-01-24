@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" path="res://Attack/Attack.gd" id="1_aymo5"]
 
-[node name="OverheadAttack" type="Node2D" node_paths=PackedStringArray("character_animations")]
+[node name="OverheadAttack" type="Node2D"]
 script = ExtResource("1_aymo5")
-character_animations = NodePath("")
 wind_up_anim_name = "char_attack_windup"
 action_anim_name = "char_attack_action"
 recover_anim_name = "char_attack_recover"
@@ -12,7 +11,6 @@ attack_move_force = 50.0
 attack_deceleration = 100.0
 
 [node name="WindupTime" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
 
 [node name="FollowThroughTime" type="Timer" parent="."]

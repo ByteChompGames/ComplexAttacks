@@ -11,8 +11,10 @@ enum CharacterState
 
 @export var move_speed : float = 100
 
+var charging : bool = false
 
 @onready var character_sprite = $CharacterSprite
+@onready var weapon_sprite = $CharacterSprite/Weapon
 @onready var character_animations = $CharacterAnimations
 @onready var attack_pool = $AttackPool
 
@@ -41,20 +43,30 @@ func _physics_process(delta):
 				state = CharacterState.IDLE
 			return
 		CharacterState.ATTACK:
+			if !charging:
+				attack_pool.release_attack()
 			return
 
 func _input(event):
 	if event.is_action_pressed("attack"):
+		charging = true
 		if state != CharacterState.ATTACK:
 			attack_pool.perform_attack()
 		else:
 			attack_pool.buffer_attack()
+	
+	if event.is_action_released("attack"):
+		charging = false
 
 func flip_direction(input):
 	if input > 0:
 		character_sprite.scale.x = 1
 	if input < 0:
 		character_sprite.scale.x = -1
+
+func flash_sprites():
+	character_sprite.flash_sprite()
+	weapon_sprite.flash_sprite()
 
 func get_direction() -> Vector2:
 	return Vector2.RIGHT * character_sprite.scale.x

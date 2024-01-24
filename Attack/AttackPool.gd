@@ -29,7 +29,19 @@ func buffer_attack():
 	attack_buffer.start()
 	attack_buffered = true
 
+# if charging the current attack, release the attack
+func release_attack():
+	var attack_id = combo_count -1
+	if attack_id < 0:
+		attack_id = combo_order.size() - 1
+	
+	var current_attack = combo_order[attack_id]
+	current_attack.release_attack()
+
 func perform_attack():
+	# put the character in the attack state
+	owner.set_state(2)
+	
 	# if the attack was buffered, reset the buffer
 	if attack_buffered:
 		attack_buffered = false
@@ -44,8 +56,6 @@ func perform_attack():
 	if !combo_timer.is_stopped():
 		combo_timer.stop()
 	combo_timer.start()
-	# put the character in the attack state
-	owner.set_state(2)
 
 # returns the attack at the current combo from the order of attacks
 func get_attack() -> Attack:

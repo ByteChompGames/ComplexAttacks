@@ -16,6 +16,7 @@ enum AttackState
 @export var recover_anim_name : String = ""
 
 @export var attack_move_force : float = 1
+@export var charge_force_multiplier : float = 1.5
 @export var attack_deceleration: float = 2
 
 var attack_pool : AttackPool
@@ -48,12 +49,44 @@ func start_attack():
 	windup_timer.start();
 	state = AttackState.WINDUP
 
+func release_attack():
+	if state != AttackState.WINDUP: return
+	
+	character_animations.play(action_anim_name)
+	follow_through_timer.start()
+	state = AttackState.ACTION
+	current_force = attack_move_force * calculate_charge()
+	owner.charging = false
+	windup_timer.stop()
+
+func end_attack():
+	owner.set_state(0)
+	attack_pool.combo_count = 0
+	state = AttackState.OFF
+
+# returns a multiplier to be applied to attack movement and damage
+func calculate_charge() -> float:
+	# use max value if wind_up times out
+	if windup_timer.is_stopped(): return charge_force_multiplier
+	# get a percent value based on how much time is remaining in windup
+	var charge_percent = windup_timer.time_left / windup_timer.wait_time
+	# get the inverse of that percent value
+	charge_percent = 1 - charge_percent
+	# apply percent value to max value
+	var multiplier = charge_force_multiplier * charge_percent
+	# keep the multiplier in an acceptable range of movement
+	multiplier = clamp(multiplier, 0.75, charge_force_multiplier)
+	#return the adjusted value
+	return multiplier
+
 # perform the attack action once the wind-up is complete.
 func _on_windup_time_timeout():
 	character_animations.play(action_anim_name)
 	follow_through_timer.start()
 	state = AttackState.ACTION
-	current_force = attack_move_force
+	current_force = attack_move_force * calculate_charge()
+	owner.flash_sprites()
+	owner.charging = false
 
 # recover from the attack action once the follow-through is complete.
 func _on_follow_through_time_timeout():
@@ -65,6 +98,4 @@ func _on_follow_through_time_timeout():
 		state = AttackState.RECOVER
 		current_force = 0
 
-func end_attack():
-	owner.set_state(0)
-	state = AttackState.OFF
+

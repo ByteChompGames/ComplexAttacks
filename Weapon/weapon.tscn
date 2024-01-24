@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy8deqocx5w7c"]
+
+[ext_resource type="Material" uid="uid://76n472eltjb1" path="res://Character/attack_character.tres" id="1_p2kb6"]
+[ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Character/Attack_Character_Sheet.png" id="2_6bc08"]
+[ext_resource type="Script" path="res://Weapon/weapon.gd" id="3_h6xjb"]
+
+[node name="Weapon" type="Sprite2D"]
+texture_filter = 1
+material = ExtResource("1_p2kb6")
+position = Vector2(-8, -7)
+texture = ExtResource("2_6bc08")
+region_enabled = true
+region_rect = Rect2(36, 37, 8, 22)
+script = ExtResource("3_h6xjb")
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]

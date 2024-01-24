@@ -1,28 +1,15 @@
-[gd_scene load_steps=24 format=3 uid="uid://c0kdapa3xmyei"]
+[gd_scene load_steps=21 format=3 uid="uid://c0kdapa3xmyei"]
 
 [ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Character/character_sprite.tscn" id="1_5djjb"]
 [ext_resource type="Script" path="res://Character/attack_character.gd" id="1_yn12m"]
-[ext_resource type="Shader" path="res://Character/solid_color.gdshader" id="3_kgtva"]
+[ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Character/Attack_Character_Sheet.png" id="2_567to"]
 [ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="4_7nxov"]
-[ext_resource type="PackedScene" uid="uid://cy8deqocx5w7c" path="res://Weapon/weapon.tscn" id="4_fd1ag"]
 [ext_resource type="Script" path="res://Attack/AttackPool.gd" id="4_m3ua5"]
 [ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="5_siix8"]
 [ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="6_r3ykh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4o0vf"]
-resource_local_to_scene = true
-shader = ExtResource("3_kgtva")
-shader_parameter/flash_color = Color(1, 1, 1, 0)
-shader_parameter/flash_modifier = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q7mse"]
-resource_local_to_scene = true
-shader = ExtResource("3_kgtva")
-shader_parameter/flash_color = Color(1, 1, 1, 0)
-shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="Animation" id="Animation_a3f5h"]
 length = 0.001
@@ -688,12 +675,15 @@ position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_3gup5")
 
 [node name="CharacterSprite" parent="." instance=ExtResource("1_5djjb")]
-material = SubResource("ShaderMaterial_4o0vf")
 animation = &"idle_blink"
 autoplay = "run"
 
-[node name="Weapon" parent="CharacterSprite" instance=ExtResource("4_fd1ag")]
-material = SubResource("ShaderMaterial_q7mse")
+[node name="Weapon" type="Sprite2D" parent="CharacterSprite"]
+texture_filter = 1
+position = Vector2(-8, -7)
+texture = ExtResource("2_567to")
+region_enabled = true
+region_rect = Rect2(36, 37, 8, 22)
 
 [node name="CharacterAnimations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -707,7 +697,7 @@ script = ExtResource("4_m3ua5")
 character_animations = NodePath("../CharacterAnimations")
 
 [node name="ComboTimer" type="Timer" parent="AttackPool"]
-wait_time = 2.0
+wait_time = 1.5
 one_shot = true
 
 [node name="AttackBuffer" type="Timer" parent="AttackPool"]

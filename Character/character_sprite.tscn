@@ -1,6 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://c0ukihyqh0pjk"]
+[gd_scene load_steps=20 format=3 uid="uid://c0ukihyqh0pjk"]
 
 [ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Character/Attack_Character_Sheet.png" id="1_cmh4b"]
+[ext_resource type="Shader" path="res://Character/solid_color.gdshader" id="1_efgja"]
+[ext_resource type="Script" path="res://Character/character_sprite.gd" id="2_31kq3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n68xw"]
+resource_local_to_scene = true
+shader = ExtResource("1_efgja")
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycexp"]
 atlas = ExtResource("1_cmh4b")
@@ -143,5 +151,13 @@ animations = [{
 
 [node name="CharacterSprite" type="AnimatedSprite2D"]
 texture_filter = 1
+material = SubResource("ShaderMaterial_n68xw")
 sprite_frames = SubResource("SpriteFrames_pcejr")
 animation = &"run"
+script = ExtResource("2_31kq3")
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]

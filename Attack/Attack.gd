@@ -32,7 +32,7 @@ func initialize(pool : AttackPool, animation_player : AnimationPlayer):
 
 func _physics_process(delta):
 	if state == AttackState.ACTION:
-		owner.move_character(owner, owner.get_direction(), current_force)
+		owner.move_character(owner, owner.get_direction(owner.character_sprite), current_force)
 		current_force -= attack_deceleration * delta
 		
 		if current_force < 0:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmkwrpyxf10lt"
-path="res://.godot/imported/Attack_Character_Sheet.png-8b05df26b81eb1d015a5193f38740666.ctex"
+uid="uid://dhggt214b3yiv"
+path="res://.godot/imported/Pixel_Particles.png-5d824f4de164e199b48b83a7f3d83ba4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Character/Attack_Character_Sheet.png"
-dest_files=["res://.godot/imported/Attack_Character_Sheet.png-8b05df26b81eb1d015a5193f38740666.ctex"]
+source_file="res://Pixel_Particles.png"
+dest_files=["res://.godot/imported/Pixel_Particles.png-5d824f4de164e199b48b83a7f3d83ba4.ctex"]
 
 [params]
 

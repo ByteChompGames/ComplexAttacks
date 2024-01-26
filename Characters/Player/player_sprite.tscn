@@ -1,0 +1,157 @@
+[gd_scene load_steps=19 format=3 uid="uid://cce63qliq84yr"]
+
+[ext_resource type="Texture2D" uid="uid://yrblyffr8a6s" path="res://Characters/Player/Attack_Player_Sheet.png" id="1_2p227"]
+[ext_resource type="Material" uid="uid://76n472eltjb1" path="res://Characters/attack_character.tres" id="1_vudm3"]
+[ext_resource type="Script" path="res://Characters/character_sprite.gd" id="2_c2hfs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7t0do"]
+atlas = ExtResource("1_2p227")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4vbr"]
+atlas = ExtResource("1_2p227")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwwn3"]
+atlas = ExtResource("1_2p227")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6cwk"]
+atlas = ExtResource("1_2p227")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tggyi"]
+atlas = ExtResource("1_2p227")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bljct"]
+atlas = ExtResource("1_2p227")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3i3f"]
+atlas = ExtResource("1_2p227")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5y5w"]
+atlas = ExtResource("1_2p227")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1d3w"]
+atlas = ExtResource("1_2p227")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvxxm"]
+atlas = ExtResource("1_2p227")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md721"]
+atlas = ExtResource("1_2p227")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0apnw"]
+atlas = ExtResource("1_2p227")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7ved"]
+atlas = ExtResource("1_2p227")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qsmj"]
+atlas = ExtResource("1_2p227")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_074cc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7t0do")
+}],
+"loop": true,
+"name": &"attack_action",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4vbr")
+}],
+"loop": true,
+"name": &"attack_followthrough",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwwn3")
+}],
+"loop": true,
+"name": &"attack_windup",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6cwk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tggyi")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bljct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3i3f")
+}],
+"loop": true,
+"name": &"idle_blink",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5y5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1d3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvxxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1d3w")
+}],
+"loop": true,
+"name": &"run",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md721")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0apnw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7ved")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qsmj")
+}],
+"loop": true,
+"name": &"run_blink",
+"speed": 6.0
+}]
+
+[node name="PlayerSprite" type="AnimatedSprite2D"]
+texture_filter = 1
+material = ExtResource("1_vudm3")
+sprite_frames = SubResource("SpriteFrames_074cc")
+animation = &"attack_followthrough"
+script = ExtResource("2_c2hfs")
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]

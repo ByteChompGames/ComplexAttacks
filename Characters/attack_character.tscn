@@ -1,26 +1,26 @@
 [gd_scene load_steps=24 format=3 uid="uid://c0kdapa3xmyei"]
 
-[ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Character/character_sprite.tscn" id="1_5djjb"]
-[ext_resource type="Script" path="res://Character/attack_character.gd" id="1_yn12m"]
-[ext_resource type="Shader" path="res://Character/solid_color.gdshader" id="3_kgtva"]
-[ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="4_7nxov"]
-[ext_resource type="PackedScene" uid="uid://cy8deqocx5w7c" path="res://Weapon/weapon.tscn" id="4_fd1ag"]
-[ext_resource type="Script" path="res://Attack/AttackPool.gd" id="4_m3ua5"]
-[ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="5_siix8"]
-[ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="6_r3ykh"]
+[ext_resource type="Script" path="res://Characters/attack_character.gd" id="1_yt51k"]
+[ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Characters/Enemy/enemy_sprite.tscn" id="2_bb8hx"]
+[ext_resource type="Shader" path="res://Characters/solid_color.gdshader" id="3_uwwr8"]
+[ext_resource type="PackedScene" uid="uid://cy8deqocx5w7c" path="res://Weapon/weapon.tscn" id="4_xngeh"]
+[ext_resource type="Script" path="res://Attack/AttackPool.gd" id="5_5jvmt"]
+[ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="6_qh6ds"]
+[ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="7_vb00g"]
+[ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="8_6i3oe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4o0vf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j6la4"]
 resource_local_to_scene = true
-shader = ExtResource("3_kgtva")
+shader = ExtResource("3_uwwr8")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q7mse"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x66tv"]
 resource_local_to_scene = true
-shader = ExtResource("3_kgtva")
+shader = ExtResource("3_uwwr8")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 shader_parameter/flash_modifier = 0.0
 
@@ -680,20 +680,20 @@ _data = {
 }
 
 [node name="AttackCharacter" type="CharacterBody2D"]
-script = ExtResource("1_yn12m")
+script = ExtResource("1_yt51k")
 move_speed = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_3gup5")
 
-[node name="CharacterSprite" parent="." instance=ExtResource("1_5djjb")]
-material = SubResource("ShaderMaterial_4o0vf")
+[node name="CharacterSprite" parent="." instance=ExtResource("2_bb8hx")]
+material = SubResource("ShaderMaterial_j6la4")
 animation = &"idle_blink"
 autoplay = "run"
 
-[node name="Weapon" parent="CharacterSprite" instance=ExtResource("4_fd1ag")]
-material = SubResource("ShaderMaterial_q7mse")
+[node name="Weapon" parent="CharacterSprite" instance=ExtResource("4_xngeh")]
+material = SubResource("ShaderMaterial_x66tv")
 
 [node name="CharacterAnimations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -703,7 +703,7 @@ libraries = {
 }
 
 [node name="AttackPool" type="Node2D" parent="." node_paths=PackedStringArray("character_animations")]
-script = ExtResource("4_m3ua5")
+script = ExtResource("5_5jvmt")
 character_animations = NodePath("../CharacterAnimations")
 
 [node name="ComboTimer" type="Timer" parent="AttackPool"]
@@ -714,11 +714,11 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[node name="OverheadAttack" parent="AttackPool" instance=ExtResource("4_7nxov")]
+[node name="OverheadAttack" parent="AttackPool" instance=ExtResource("6_qh6ds")]
 
-[node name="StabAttack" parent="AttackPool" instance=ExtResource("5_siix8")]
+[node name="StabAttack" parent="AttackPool" instance=ExtResource("7_vb00g")]
 
-[node name="SwingAttack" parent="AttackPool" instance=ExtResource("6_r3ykh")]
+[node name="SwingAttack" parent="AttackPool" instance=ExtResource("8_6i3oe")]
 
 [connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
 [connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]

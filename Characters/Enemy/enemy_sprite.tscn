@@ -1,69 +1,69 @@
 [gd_scene load_steps=20 format=3 uid="uid://c0ukihyqh0pjk"]
 
-[ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Character/Attack_Character_Sheet.png" id="1_cmh4b"]
-[ext_resource type="Shader" path="res://Character/solid_color.gdshader" id="1_efgja"]
-[ext_resource type="Script" path="res://Character/character_sprite.gd" id="2_31kq3"]
+[ext_resource type="Shader" path="res://Characters/solid_color.gdshader" id="1_6vwth"]
+[ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Characters/Enemy/Enemy_Character_Sheet.png" id="2_u0cgn"]
+[ext_resource type="Script" path="res://Characters/character_sprite.gd" id="3_t581y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n68xw"]
 resource_local_to_scene = true
-shader = ExtResource("1_efgja")
+shader = ExtResource("1_6vwth")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycexp"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m40qr"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x6qvy"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ijhmd"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4cau"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_earnu"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrfkg"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eibwu"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wd4ye"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q5jq3"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(32, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vu65g"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e83dx"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(48, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3hwrb"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(32, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u0agf"]
-atlas = ExtResource("1_cmh4b")
+atlas = ExtResource("2_u0cgn")
 region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pcejr"]
@@ -149,12 +149,12 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="CharacterSprite" type="AnimatedSprite2D"]
+[node name="EnemySprite" type="AnimatedSprite2D"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_n68xw")
 sprite_frames = SubResource("SpriteFrames_pcejr")
 animation = &"run"
-script = ExtResource("2_31kq3")
+script = ExtResource("3_t581y")
 
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.15

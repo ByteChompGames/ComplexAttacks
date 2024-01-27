@@ -772,10 +772,16 @@ wait_time = 0.5
 one_shot = true
 
 [node name="OverheadAttack" parent="AttackPool" instance=ExtResource("6_ufxkv")]
+charge_attack = true
+charge_amount = 1.0
 
 [node name="StabAttack" parent="AttackPool" instance=ExtResource("7_vvngo")]
+charge_attack = true
+charge_amount = 0.25
 
 [node name="SwingAttack" parent="AttackPool" instance=ExtResource("8_uas7d")]
+charge_attack = true
+charge_amount = 0.5
 
 [connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
 [connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]

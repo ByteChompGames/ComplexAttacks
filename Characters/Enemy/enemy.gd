@@ -25,6 +25,7 @@ func _physics_process(delta):
 			# move the enemy towards the target
 			var move_direction = target.global_position - global_position
 			move_character(self, move_direction.normalized(), move_speed)
+			flip_direction(character_sprite, move_direction.normalized().x)
 			#attack if in range
 			if abs(move_direction.x) < attack_range:
 				state = CharacterState.ATTACK
@@ -42,6 +43,10 @@ func wait_for_charge():
 	var current_attack = attack_pool.get_current_attack()
 	
 	if !current_attack.charge_attack:
+		attack_pool.release_attack()
+		return
+	
+	if current_attack.charge_amount_reached():
 		attack_pool.release_attack()
 
 func continue_combo():

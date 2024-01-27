@@ -10,7 +10,11 @@ enum AttackState
 }
 
 @export var state = AttackState.OFF
+
+# - FOR ENEMIES ONLY
 @export var charge_attack : bool = false
+@export var charge_amount : float = 0
+#
 
 @export var wind_up_anim_name : String = ""
 @export var action_anim_name : String = ""
@@ -65,16 +69,27 @@ func end_attack():
 	attack_pool.combo_count = 0
 	state = AttackState.OFF
 
-# returns a multiplier to be applied to attack movement and damage
-func calculate_charge() -> float:
-	# use max value if wind_up times out
-	if windup_timer.is_stopped(): return charge_force_multiplier
+func charge_amount_reached() -> bool:
+	var percent = get_charge_percent()
+	if percent >= charge_amount:
+		return true
+	else: return false
+
+func get_charge_percent() -> float:
 	# get a percent value based on how much time is remaining in windup
 	var charge_percent = windup_timer.time_left / windup_timer.wait_time
 	# get the inverse of that percent value
 	charge_percent = 1 - charge_percent
+	
+	return charge_percent
+
+# returns a multiplier to be applied to attack movement and damage
+func calculate_charge() -> float:
+	# use max value if wind_up times out
+	if windup_timer.is_stopped(): return charge_force_multiplier
+	
 	# apply percent value to max value
-	var multiplier = charge_force_multiplier * charge_percent
+	var multiplier = charge_force_multiplier * get_charge_percent()
 	# keep the multiplier in an acceptable range of movement
 	multiplier = clamp(multiplier, 0.75, charge_force_multiplier)
 	#return the adjusted value

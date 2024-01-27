@@ -2,6 +2,7 @@ extends Sprite2D
 class_name Weapon
 
 @onready var flash_timer = $FlashTimer
+@onready var hit_box = $Hitbox
 
 func flash_sprite():
 	material.set_shader_parameter("flash_modifier", 1)

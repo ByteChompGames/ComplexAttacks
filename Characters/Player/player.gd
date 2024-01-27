@@ -32,6 +32,8 @@ func _physics_process(delta):
 			if !charging:
 				attack_pool.release_attack()
 			return
+		CharacterState.HURT:
+			return
 
 # inputs
 func move_input() -> float:

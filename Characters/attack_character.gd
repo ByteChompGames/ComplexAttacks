@@ -5,7 +5,8 @@ enum CharacterState
 {
 	IDLE,
 	MOVE,
-	ATTACK
+	ATTACK,
+	HURT
 }
 @export var state = CharacterState.MOVE
 @export var move_speed : float = 100
@@ -32,3 +33,7 @@ func set_character_animation(character_animations : AnimationPlayer, animation :
 
 func set_state(stateID : int):
 	state = stateID
+
+func receive_hit(damage : float, direction : Vector2, health : Health):
+	health.receive_damage(damage)
+	state = CharacterState.HURT

@@ -8,9 +8,11 @@ class_name Enemy
 @onready var weapon_sprite = $EnemySprite/Weapon
 @onready var character_animations = $CharacterAnimations
 @onready var attack_pool = $AttackPool
+@onready var health = $Health
 
 func _ready():
 	character_sprite.play()
+	health.reset()
 
 func _physics_process(delta):
 	match state:
@@ -33,6 +35,8 @@ func _physics_process(delta):
 			return
 		CharacterState.ATTACK:
 			return
+		CharacterState.HURT:
+			return
 
 # sprites
 func flash_sprites():
@@ -40,12 +44,13 @@ func flash_sprites():
 	weapon_sprite.flash_sprite()
 
 func wait_for_charge():
+	# get the current attack
 	var current_attack = attack_pool.get_current_attack()
-	
+	# release the attack immediately if it is not a charge attack
 	if !current_attack.charge_attack:
 		attack_pool.release_attack()
 		return
-	
+	# release the attack if the charge amount is reached
 	if current_attack.charge_amount_reached():
 		attack_pool.release_attack()
 

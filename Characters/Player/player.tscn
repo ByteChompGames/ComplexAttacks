@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ovshmsld1rgi"]
+[gd_scene load_steps=28 format=3 uid="uid://ovshmsld1rgi"]
 
 [ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_4a23v"]
 [ext_resource type="PackedScene" uid="uid://cce63qliq84yr" path="res://Characters/Player/player_sprite.tscn" id="2_xlgp6"]
@@ -9,17 +9,19 @@
 [ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="6_8l3n3"]
 [ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="7_g7n76"]
 [ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="8_wbdyx"]
+[ext_resource type="PackedScene" uid="uid://uvt7rrb0wuvt" path="res://Characters/Components/health.tscn" id="10_mmmt1"]
+[ext_resource type="PackedScene" uid="uid://cd8gjyifnvpy7" path="res://Characters/Components/hurtbox.tscn" id="11_ry8cj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i8h11"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxxjj"]
 resource_local_to_scene = true
 shader = ExtResource("3_tcww3")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ti2b"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_msis4"]
 resource_local_to_scene = true
 shader = ExtResource("3_tcww3")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
@@ -668,6 +670,9 @@ _data = {
 "char_swing_windup": SubResource("Animation_7744c")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqcv3"]
+size = Vector2(10, 10)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_4a23v")
 move_speed = 50.0
@@ -677,12 +682,12 @@ position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_3gup5")
 
 [node name="PlayerSprite" parent="." instance=ExtResource("2_xlgp6")]
-material = SubResource("ShaderMaterial_i8h11")
+material = SubResource("ShaderMaterial_hxxjj")
 position = Vector2(-1, 0)
 animation = &"attack_action"
 
 [node name="Weapon" parent="PlayerSprite" instance=ExtResource("4_v37j2")]
-material = SubResource("ShaderMaterial_4ti2b")
+material = SubResource("ShaderMaterial_msis4")
 position = Vector2(-8, -5)
 texture = ExtResource("5_7tanl")
 region_rect = Rect2(36, 38, 8, 22)
@@ -710,6 +715,14 @@ one_shot = true
 [node name="StabAttack" parent="AttackPool" instance=ExtResource("7_g7n76")]
 
 [node name="SwingAttack" parent="AttackPool" instance=ExtResource("8_wbdyx")]
+
+[node name="Health" parent="." instance=ExtResource("10_mmmt1")]
+
+[node name="Hurtbox" parent="." instance=ExtResource("11_ry8cj")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-1, 1)
+shape = SubResource("RectangleShape2D_vqcv3")
 
 [connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
 [connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c0ukihyqh0pjk"]
+[gd_scene load_steps=21 format=3 uid="uid://c0ukihyqh0pjk"]
 
 [ext_resource type="Shader" path="res://Characters/solid_color.gdshader" id="1_6vwth"]
 [ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Characters/Enemy/Enemy_Character_Sheet.png" id="2_u0cgn"]
@@ -21,6 +21,10 @@ region = Rect2(16, 16, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_x6qvy"]
 atlas = ExtResource("2_u0cgn")
 region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3oefb"]
+atlas = ExtResource("2_u0cgn")
+region = Rect2(0, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ijhmd"]
 atlas = ExtResource("2_u0cgn")
@@ -94,6 +98,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_3oefb")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ijhmd")
 }, {
 "duration": 1.0,
@@ -153,7 +165,7 @@ animations = [{
 texture_filter = 1
 material = SubResource("ShaderMaterial_n68xw")
 sprite_frames = SubResource("SpriteFrames_pcejr")
-animation = &"run"
+animation = &"hurt"
 script = ExtResource("3_t581y")
 
 [node name="FlashTimer" type="Timer" parent="."]

@@ -13,13 +13,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_45r3n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i8h11"]
 resource_local_to_scene = true
 shader = ExtResource("3_tcww3")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwns3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ti2b"]
 resource_local_to_scene = true
 shader = ExtResource("3_tcww3")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
@@ -677,12 +677,12 @@ position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_3gup5")
 
 [node name="PlayerSprite" parent="." instance=ExtResource("2_xlgp6")]
-material = SubResource("ShaderMaterial_45r3n")
+material = SubResource("ShaderMaterial_i8h11")
 position = Vector2(-1, 0)
 animation = &"attack_action"
 
 [node name="Weapon" parent="PlayerSprite" instance=ExtResource("4_v37j2")]
-material = SubResource("ShaderMaterial_gwns3")
+material = SubResource("ShaderMaterial_4ti2b")
 position = Vector2(-8, -5)
 texture = ExtResource("5_7tanl")
 region_rect = Rect2(36, 38, 8, 22)

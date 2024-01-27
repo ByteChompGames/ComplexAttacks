@@ -13,18 +13,18 @@ func _physics_process(delta):
 	var input = move_input()
 	match state:
 		CharacterState.IDLE:
-			
 			set_character_animation(character_animations, "char_idle")
 			
 			if input != 0:
 				state = CharacterState.MOVE
 			return
 		CharacterState.MOVE:
-			
 			set_character_animation(character_animations, "char_run")
+			
 			var move_direction = Vector2.RIGHT * input
 			move_character(self, move_direction, move_speed)
 			flip_direction(character_sprite, input);
+			
 			if input == 0:
 				state = CharacterState.IDLE
 			return

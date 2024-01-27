@@ -12,13 +12,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8deaf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rs0ku"]
 resource_local_to_scene = true
 shader = ExtResource("3_cns2v")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_usd1f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o8s1f"]
 resource_local_to_scene = true
 shader = ExtResource("3_cns2v")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
@@ -194,6 +194,20 @@ tracks/5/keys = {
 "values": [{
 "args": [],
 "method": &"end_attack"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"continue_combo"
 }]
 }
 
@@ -681,21 +695,21 @@ _data = {
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_1pmg3")
-state = null
-move_speed = null
+state = 0
+move_speed = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_3gup5")
 
 [node name="EnemySprite" parent="." instance=ExtResource("2_052t8")]
-material = SubResource("ShaderMaterial_8deaf")
+material = SubResource("ShaderMaterial_rs0ku")
 position = Vector2(-1, 0)
 animation = &"idle_blink"
 autoplay = "run"
 
 [node name="Weapon" parent="EnemySprite" instance=ExtResource("4_nkfh7")]
-material = SubResource("ShaderMaterial_usd1f")
+material = SubResource("ShaderMaterial_o8s1f")
 
 [node name="CharacterAnimations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

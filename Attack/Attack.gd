@@ -10,6 +10,7 @@ enum AttackState
 }
 
 @export var state = AttackState.OFF
+@export var charge_attack : bool = false
 
 @export var wind_up_anim_name : String = ""
 @export var action_anim_name : String = ""
@@ -97,5 +98,3 @@ func _on_follow_through_time_timeout():
 		character_animations.play(recover_anim_name)
 		state = AttackState.RECOVER
 		current_force = 0
-
-

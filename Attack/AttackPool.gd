@@ -22,6 +22,23 @@ func _ready():
 	for attack in combo_order:
 		attack.initialize(self, character_animations)
 
+# Get Attack Methods
+# - returns the attack currently being performed
+func get_current_attack() -> Attack:
+	var attack_id = combo_count -1
+	if attack_id < 0:
+		attack_id = combo_order.size() - 1
+	
+	return combo_order[attack_id]
+	
+# - returns the next attack that will be performed
+func get_next_attack() -> Attack:
+	return combo_order[combo_count]
+
+# - returns the attack that matches the given id
+func get_attack_from_list(id : int) -> Attack:
+	return combo_order[id]
+
 func buffer_attack():
 	if !attack_buffer.is_stopped():
 		attack_buffer.stop()
@@ -29,13 +46,15 @@ func buffer_attack():
 	attack_buffer.start()
 	attack_buffered = true
 
+# - returns whether the current attack is a charge attack
+func current_attack_charging() -> bool:
+	var attack = get_current_attack()
+	
+	return attack.charge_attack
+
 # if charging the current attack, release the attack
 func release_attack():
-	var attack_id = combo_count -1
-	if attack_id < 0:
-		attack_id = combo_order.size() - 1
-	
-	var current_attack = combo_order[attack_id]
+	var current_attack = get_current_attack()
 	current_attack.release_attack()
 
 func perform_attack():
@@ -49,18 +68,13 @@ func perform_attack():
 			attack_buffer.stop()
 	
 	# start the next attack in the combo
-	var attack = get_attack()
+	var attack = get_next_attack()
 	attack.start_attack()
 	# update the combo count and reset the combo timer
 	update_combo()
 	if !combo_timer.is_stopped():
 		combo_timer.stop()
 	combo_timer.start()
-
-# returns the attack at the current combo from the order of attacks
-func get_attack() -> Attack:
-	var selected_attack = combo_order[combo_count]
-	return selected_attack
 
 # move to the next attack in the combo, reset if the final attack is reached
 func update_combo():

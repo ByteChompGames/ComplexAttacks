@@ -276,6 +276,20 @@ tracks/4/keys = {
 "update": 1,
 "values": [-1.5708]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.0833333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wait_for_charge"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_a2dxk"]
 resource_name = "char_idle"
@@ -491,6 +505,20 @@ tracks/4/keys = {
 "update": 1,
 "values": [1.5708]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.0833333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wait_for_charge"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_ym0xp"]
 resource_name = "char_swing_action"
@@ -676,6 +704,20 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1.5708]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.0833333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wait_for_charge"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c6b67"]

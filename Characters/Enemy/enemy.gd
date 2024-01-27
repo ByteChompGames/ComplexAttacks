@@ -39,7 +39,10 @@ func flash_sprites():
 	weapon_sprite.flash_sprite()
 
 func wait_for_charge():
-	pass
+	var current_attack = attack_pool.get_current_attack()
+	
+	if !current_attack.charge_attack:
+		attack_pool.release_attack()
 
 func continue_combo():
 	# end combo if combo order complete

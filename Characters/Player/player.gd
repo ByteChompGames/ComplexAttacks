@@ -5,6 +5,7 @@ class_name Player
 @onready var weapon_sprite = $PlayerSprite/Weapon
 @onready var character_animations = $CharacterAnimations
 @onready var attack_pool = $AttackPool
+@onready var health = $Health
 
 func _ready():
 	character_sprite.play()
@@ -33,6 +34,13 @@ func _physics_process(delta):
 				attack_pool.release_attack()
 			return
 		CharacterState.HURT:
+			move_character(self, -hit_direction, knockback_force)
+			knockback_force -= knockback_deceleration * delta
+			flip_direction(character_sprite, hit_direction.x)
+			
+			if knockback_force < 0:
+				knockback_force = 0
+				state = CharacterState.IDLE
 			return
 
 # inputs
@@ -51,6 +59,20 @@ func _input(event):
 	
 	if event.is_action_released("attack"):
 		charging = false
+
+func receive_hit(damage : float, direction : Vector2):
+	# invulnerable to hits if already reacting to a hit
+	if state == CharacterState.HURT: return 
+	# cancel attack
+	attack_pool.interupt_attack()
+	# deal damage
+	health.receive_damage(damage)
+	# setup knockback
+	hit_direction = direction
+	knockback_force = 50
+	# enter hurt state
+	state = CharacterState.HURT
+	set_character_animation(character_animations, "char_hurt")
 
 # sprites
 func flash_sprites():

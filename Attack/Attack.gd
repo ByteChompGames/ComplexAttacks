@@ -68,6 +68,7 @@ func end_attack():
 	owner.set_state(0)
 	attack_pool.combo_count = 0
 	state = AttackState.OFF
+	owner.weapon_sprite.toggle_hitbox(false)
 
 func charge_amount_reached() -> bool:
 	var percent = get_charge_percent()

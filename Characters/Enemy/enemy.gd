@@ -36,7 +36,28 @@ func _physics_process(delta):
 		CharacterState.ATTACK:
 			return
 		CharacterState.HURT:
+			move_character(self, -hit_direction, knockback_force)
+			knockback_force -= knockback_deceleration * delta
+			flip_direction(character_sprite, hit_direction.x)
+			
+			if knockback_force < 0:
+				knockback_force = 0
+				state = CharacterState.IDLE
 			return
+
+func receive_hit(damage : float, direction : Vector2):
+	# invulnerable to hits if already reacting to a hit
+	if state == CharacterState.HURT: return 
+	# cancel attack
+	attack_pool.interupt_attack()
+	# deal damage
+	health.receive_damage(damage)
+	# setup knockback
+	hit_direction = direction
+	knockback_force = 50
+	# enter hurt state
+	state = CharacterState.HURT
+	set_character_animation(character_animations, "char_hurt")
 
 # sprites
 func flash_sprites():
@@ -53,6 +74,9 @@ func wait_for_charge():
 	# release the attack if the charge amount is reached
 	if current_attack.charge_amount_reached():
 		attack_pool.release_attack()
+
+func play_hurt_animation():
+	set_character_animation(character_animations, "char_hurt")
 
 func continue_combo():
 	# end combo if combo order complete

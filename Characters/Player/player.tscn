@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ovshmsld1rgi"]
+[gd_scene load_steps=29 format=3 uid="uid://ovshmsld1rgi"]
 
 [ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_4a23v"]
 [ext_resource type="PackedScene" uid="uid://cce63qliq84yr" path="res://Characters/Player/player_sprite.tscn" id="2_xlgp6"]
@@ -15,13 +15,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxxjj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o43b0"]
 resource_local_to_scene = true
 shader = ExtResource("3_tcww3")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_msis4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8aw1f"]
 resource_local_to_scene = true
 shader = ExtResource("3_tcww3")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
@@ -117,6 +117,23 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [-0.785398, 0.0, 1.5708]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite/Weapon")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"toggle_hitbox"
+}, {
+"args": [false],
+"method": &"toggle_hitbox"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_ln5q5"]
@@ -266,6 +283,58 @@ tracks/4/keys = {
 "values": [Vector2(-1, 0), Vector2(0, 0), Vector2(-1, 0), Vector2(0, 0), Vector2(-1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ble36"]
+resource_name = "char_hurt"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"hurt"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerSprite/Weapon:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-9, -9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerSprite/Weapon:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.349066]
+}
+
 [sub_resource type="Animation" id="Animation_a2dxk"]
 resource_name = "char_idle"
 length = 4.00005
@@ -306,6 +375,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(-8, -5), Vector2(-8, -4), Vector2(-8, -5), Vector2(-8, -4), Vector2(-8, -5), Vector2(-8, -4), Vector2(-8, -5), Vector2(-8, -4), Vector2(-8, -5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerSprite:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite/Weapon:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_j6r6c"]
@@ -348,6 +441,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(-8, -7), Vector2(-8, -6), Vector2(-8, -7), Vector2(-8, -6), Vector2(-8, -7), Vector2(-8, -6), Vector2(-8, -7), Vector2(-8, -6), Vector2(-8, -7), Vector2(-8, -6), Vector2(-8, -7), Vector2(-8, -6), Vector2(-8, -7)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerSprite/Weapon:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_5y4nn"]
@@ -401,6 +518,23 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1.5708]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite/Weapon")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"toggle_hitbox"
+}, {
+"args": [false],
+"method": &"toggle_hitbox"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_tb1qr"]
@@ -520,6 +654,23 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [1.5708, 0.785398, 0.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite/Weapon")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"toggle_hitbox"
+}, {
+"args": [false],
+"method": &"toggle_hitbox"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_5vbwn"]
@@ -661,6 +812,7 @@ _data = {
 "char_attack_action": SubResource("Animation_n010v"),
 "char_attack_recover": SubResource("Animation_ln5q5"),
 "char_attack_windup": SubResource("Animation_tbi3i"),
+"char_hurt": SubResource("Animation_ble36"),
 "char_idle": SubResource("Animation_a2dxk"),
 "char_run": SubResource("Animation_j6r6c"),
 "char_stab_action": SubResource("Animation_5y4nn"),
@@ -674,6 +826,8 @@ _data = {
 size = Vector2(10, 10)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_4a23v")
 move_speed = 50.0
 
@@ -682,18 +836,19 @@ position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_3gup5")
 
 [node name="PlayerSprite" parent="." instance=ExtResource("2_xlgp6")]
-material = SubResource("ShaderMaterial_hxxjj")
+material = SubResource("ShaderMaterial_o43b0")
 position = Vector2(-1, 0)
-animation = &"attack_action"
+animation = &"idle"
 
 [node name="Weapon" parent="PlayerSprite" instance=ExtResource("4_v37j2")]
-material = SubResource("ShaderMaterial_msis4")
+material = SubResource("ShaderMaterial_8aw1f")
 position = Vector2(-8, -5)
 texture = ExtResource("5_7tanl")
 region_rect = Rect2(36, 38, 8, 22)
 
 [node name="CharacterAnimations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
+autoplay = "char_idle"
 libraries = {
 "": SubResource("AnimationLibrary_c6b67")
 }
@@ -719,6 +874,7 @@ one_shot = true
 [node name="Health" parent="." instance=ExtResource("10_mmmt1")]
 
 [node name="Hurtbox" parent="." instance=ExtResource("11_ry8cj")]
+collision_mask = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(-1, 1)
@@ -726,3 +882,5 @@ shape = SubResource("RectangleShape2D_vqcv3")
 
 [connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
 [connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]
+
+[editable path="PlayerSprite/Weapon"]

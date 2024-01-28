@@ -76,6 +76,15 @@ func perform_attack():
 		combo_timer.stop()
 	combo_timer.start()
 
+func interupt_attack():
+	var current_attack = get_current_attack()
+	if current_attack.state == Attack.AttackState.WINDUP:
+		current_attack.windup_timer.stop()
+	if current_attack.state == Attack.AttackState.ACTION:
+		current_attack.follow_through_timer.stop()
+	
+	current_attack.end_attack()
+
 # move to the next attack in the combo, reset if the final attack is reached
 func update_combo():
 	combo_count += 1

@@ -18,5 +18,5 @@ position = Vector2(0, -28)
 zoom = Vector2(5, 5)
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_kqtmk")]
-position = Vector2(-83, 1)
+position = Vector2(-100, 1)
 target = NodePath("../Player")

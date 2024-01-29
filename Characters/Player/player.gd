@@ -6,6 +6,7 @@ class_name Player
 @onready var character_animations = $CharacterAnimations
 @onready var attack_pool = $AttackPool
 @onready var health = $Health
+@onready var hit_invul_timer = $HitInvulTimer
 
 func _ready():
 	character_sprite.play()
@@ -62,7 +63,7 @@ func _input(event):
 
 func receive_hit(damage : float, direction : Vector2):
 	# invulnerable to hits if already reacting to a hit
-	if state == CharacterState.HURT: return 
+	if invulnerable: return 
 	# cancel attack
 	attack_pool.interupt_attack()
 	# deal damage
@@ -70,11 +71,24 @@ func receive_hit(damage : float, direction : Vector2):
 	# setup knockback
 	hit_direction = direction
 	knockback_force = 50
+	
+	invulnerable = true
+	hit_invul_timer.start()
+	
 	# enter hurt state
 	state = CharacterState.HURT
 	set_character_animation(character_animations, "char_hurt")
+	flash_sprites(0.5)
+
+func set_weapon_damage(multiplier):
+	var hitbox = weapon_sprite.hit_box
+	hitbox.damage = hitbox.base_damage * multiplier
 
 # sprites
-func flash_sprites():
-	character_sprite.flash_sprite()
-	weapon_sprite.flash_sprite()
+func flash_sprites(alpha : float):
+	character_sprite.flash_sprite(alpha)
+	weapon_sprite.flash_sprite(alpha)
+
+
+func _on_hit_invul_timer_timeout():
+	invulnerable = false

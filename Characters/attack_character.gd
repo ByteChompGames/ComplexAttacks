@@ -10,11 +10,13 @@ enum CharacterState
 }
 @export var state = CharacterState.MOVE
 @export var move_speed : float = 100
-@export var knockback_deceleration : float = 100
+@export var knockback_deceleration : float = 75
+@export var base_knockback_force : float = 50
 
 var charging : bool = false
 var knockback_force : float = 50
 var hit_direction : Vector2 = Vector2.ZERO
+var invulnerable = false
 
 func flip_direction( character_sprite : AnimatedSprite2D, direction : float):
 	if direction > 0:
@@ -42,3 +44,9 @@ func play_hurt_animation():
 
 func receive_hit(damage : float, direction : Vector2):
 	pass
+
+func set_weapon_damage(multiplier):
+	pass
+
+func set_knockback_force(multiplier):
+	knockback_force = base_knockback_force * multiplier

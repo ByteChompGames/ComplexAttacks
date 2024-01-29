@@ -60,7 +60,9 @@ func release_attack():
 	character_animations.play(action_anim_name)
 	follow_through_timer.start()
 	state = AttackState.ACTION
-	current_force = attack_move_force * calculate_charge()
+	var charge_multiplier = calculate_charge()
+	current_force = attack_move_force * charge_multiplier
+	owner.set_weapon_damage(charge_multiplier)
 	owner.charging = false
 	windup_timer.stop()
 
@@ -101,8 +103,10 @@ func _on_windup_time_timeout():
 	character_animations.play(action_anim_name)
 	follow_through_timer.start()
 	state = AttackState.ACTION
-	current_force = attack_move_force * calculate_charge()
-	owner.flash_sprites()
+	var charge_multiplier = calculate_charge()
+	current_force = attack_move_force * charge_multiplier
+	owner.set_weapon_damage(charge_multiplier)
+	owner.flash_sprites(1)
 	owner.charging = false
 
 # recover from the attack action once the follow-through is complete.

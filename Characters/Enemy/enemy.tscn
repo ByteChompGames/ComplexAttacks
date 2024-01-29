@@ -14,13 +14,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dy7qy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q4dib"]
 resource_local_to_scene = true
 shader = ExtResource("3_cns2v")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtf7u"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oyp2r"]
 resource_local_to_scene = true
 shader = ExtResource("3_cns2v")
 shader_parameter/flash_color = Color(1, 1, 1, 0)
@@ -897,19 +897,19 @@ collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_1pmg3")
 state = 0
-move_speed = 25.0
+move_speed = 15.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_3gup5")
 
 [node name="EnemySprite" parent="." instance=ExtResource("2_052t8")]
-material = SubResource("ShaderMaterial_dy7qy")
+material = SubResource("ShaderMaterial_q4dib")
 animation = &"idle_blink"
 autoplay = "run"
 
 [node name="Weapon" parent="EnemySprite" instance=ExtResource("4_nkfh7")]
-material = SubResource("ShaderMaterial_rtf7u")
+material = SubResource("ShaderMaterial_oyp2r")
 
 [node name="Hitbox" parent="EnemySprite/Weapon" index="1"]
 collision_layer = 1
@@ -953,7 +953,12 @@ charge_amount = 1.0
 position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_t2hcu")
 
+[node name="HitInvulTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
 [connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
 [connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]
+[connection signal="timeout" from="HitInvulTimer" to="." method="_on_hit_invul_timer_timeout"]
 
 [editable path="EnemySprite/Weapon"]

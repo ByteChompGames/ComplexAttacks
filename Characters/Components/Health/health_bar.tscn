@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://qvldivnrjiwb"]
+
+[ext_resource type="Script" path="res://HealthBar.gd" id="1_l1vyx"]
+[ext_resource type="PackedScene" uid="uid://bhxya7mcyovsw" path="res://Characters/Components/Health/health_heart.tscn" id="2_h7k1a"]
+
+[node name="HealthBar" type="Node2D"]
+script = ExtResource("1_l1vyx")
+
+[node name="Heart_One" parent="." instance=ExtResource("2_h7k1a")]
+
+[node name="Heart_Two" parent="." instance=ExtResource("2_h7k1a")]
+position = Vector2(10, 0)
+
+[node name="Heart_Three" parent="." instance=ExtResource("2_h7k1a")]
+position = Vector2(20, 0)
+
+[node name="ActiveTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ActiveTimer" to="." method="_on_active_timer_timeout"]

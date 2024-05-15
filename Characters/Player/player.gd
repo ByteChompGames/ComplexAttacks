@@ -10,6 +10,7 @@ class_name Player
 
 func _ready():
 	character_sprite.play()
+	health.reset()
 
 func _physics_process(delta):
 	var input = move_input()

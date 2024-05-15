@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ovshmsld1rgi"]
+[gd_scene load_steps=31 format=3 uid="uid://ovshmsld1rgi"]
 
 [ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_4a23v"]
 [ext_resource type="PackedScene" uid="uid://cce63qliq84yr" path="res://Characters/Player/player_sprite.tscn" id="2_xlgp6"]
@@ -7,10 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://yrblyffr8a6s" path="res://Characters/Player/Attack_Player_Sheet.png" id="5_7tanl"]
 [ext_resource type="Script" path="res://Attack/AttackPool.gd" id="5_guph4"]
 [ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="6_8l3n3"]
+[ext_resource type="Texture2D" uid="uid://dhggt214b3yiv" path="res://Pixel_Particles.png" id="6_wpd6v"]
 [ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="7_g7n76"]
 [ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="8_wbdyx"]
-[ext_resource type="PackedScene" uid="uid://uvt7rrb0wuvt" path="res://Characters/Components/health.tscn" id="10_mmmt1"]
+[ext_resource type="PackedScene" uid="uid://uvt7rrb0wuvt" path="res://Characters/Components/Health/health.tscn" id="11_ee5ju"]
 [ext_resource type="PackedScene" uid="uid://cd8gjyifnvpy7" path="res://Characters/Components/hurtbox.tscn" id="11_ry8cj"]
+[ext_resource type="PackedScene" uid="uid://qvldivnrjiwb" path="res://Characters/Components/Health/health_bar.tscn" id="12_guqgs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
@@ -838,7 +840,6 @@ shape = SubResource("RectangleShape2D_3gup5")
 [node name="PlayerSprite" parent="." instance=ExtResource("2_xlgp6")]
 material = SubResource("ShaderMaterial_v5v5h")
 position = Vector2(-1, 0)
-animation = &"idle"
 
 [node name="Weapon" parent="PlayerSprite" instance=ExtResource("4_v37j2")]
 material = SubResource("ShaderMaterial_v561k")
@@ -846,12 +847,20 @@ position = Vector2(-8, -5)
 texture = ExtResource("5_7tanl")
 region_rect = Rect2(36, 38, 8, 22)
 
+[node name="CharacterShadow" type="Sprite2D" parent="PlayerSprite"]
+modulate = Color(0, 0, 0, 0.588235)
+position = Vector2(-0.5, 8.5)
+scale = Vector2(3, 1)
+texture = ExtResource("6_wpd6v")
+region_enabled = true
+region_rect = Rect2(1, 7, 3, 1)
+
 [node name="CharacterAnimations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
-autoplay = "char_idle"
 libraries = {
 "": SubResource("AnimationLibrary_c6b67")
 }
+autoplay = "char_idle"
 
 [node name="AttackPool" type="Node2D" parent="." node_paths=PackedStringArray("character_animations")]
 script = ExtResource("5_guph4")
@@ -871,7 +880,12 @@ one_shot = true
 
 [node name="SwingAttack" parent="AttackPool" instance=ExtResource("8_wbdyx")]
 
-[node name="Health" parent="." instance=ExtResource("10_mmmt1")]
+[node name="Health" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("11_ee5ju")]
+health_bar = NodePath("../HealthBar")
+
+[node name="HealthBar" parent="." instance=ExtResource("12_guqgs")]
+visible = false
+position = Vector2(-10, -12)
 
 [node name="Hurtbox" parent="." instance=ExtResource("11_ry8cj")]
 collision_mask = 1

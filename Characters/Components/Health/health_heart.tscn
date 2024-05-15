@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhxya7mcyovsw"]
+
+[ext_resource type="Texture2D" uid="uid://b5siw1wjefvnq" path="res://Characters/Components/Health/Hearts_SpriteSheet.png" id="1_dkk4p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjqq8"]
+atlas = ExtResource("1_dkk4p")
+region = Rect2(23, 1, 9, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gedbw"]
+atlas = ExtResource("1_dkk4p")
+region = Rect2(1, 1, 9, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4tt3"]
+atlas = ExtResource("1_dkk4p")
+region = Rect2(12, 1, 9, 9)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2luyq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjqq8")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gedbw")
+}],
+"loop": true,
+"name": &"full",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4tt3")
+}],
+"loop": true,
+"name": &"half",
+"speed": 1.0
+}]
+
+[node name="HealthHeart" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_2luyq")
+animation = &"full"
+autoplay = "full"

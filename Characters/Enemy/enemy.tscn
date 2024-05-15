@@ -1,15 +1,17 @@
-[gd_scene load_steps=28 format=3 uid="uid://1jv3uafa2xle"]
+[gd_scene load_steps=30 format=3 uid="uid://1jv3uafa2xle"]
 
 [ext_resource type="Script" path="res://Characters/Enemy/enemy.gd" id="1_1pmg3"]
 [ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Characters/Enemy/enemy_sprite.tscn" id="2_052t8"]
 [ext_resource type="Shader" path="res://Characters/solid_color.gdshader" id="3_cns2v"]
 [ext_resource type="PackedScene" uid="uid://cy8deqocx5w7c" path="res://Weapon/weapon.tscn" id="4_nkfh7"]
+[ext_resource type="Texture2D" uid="uid://dhggt214b3yiv" path="res://Pixel_Particles.png" id="5_04evd"]
 [ext_resource type="Script" path="res://Attack/AttackPool.gd" id="5_nvhcl"]
 [ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="6_ufxkv"]
 [ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="7_vvngo"]
 [ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="8_uas7d"]
-[ext_resource type="PackedScene" uid="uid://uvt7rrb0wuvt" path="res://Characters/Components/health.tscn" id="9_b7gtc"]
 [ext_resource type="PackedScene" uid="uid://cd8gjyifnvpy7" path="res://Characters/Components/hurtbox.tscn" id="10_2sfmd"]
+[ext_resource type="PackedScene" uid="uid://uvt7rrb0wuvt" path="res://Characters/Components/Health/health.tscn" id="10_t2c6g"]
+[ext_resource type="PackedScene" uid="uid://qvldivnrjiwb" path="res://Characters/Components/Health/health_bar.tscn" id="11_mk1mi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
@@ -372,6 +374,20 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-9, -9)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"die"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_a2dxk"]
@@ -914,12 +930,20 @@ material = SubResource("ShaderMaterial_oyp2r")
 [node name="Hitbox" parent="EnemySprite/Weapon" index="1"]
 collision_layer = 1
 
+[node name="CharacterShadow" type="Sprite2D" parent="EnemySprite"]
+modulate = Color(0, 0, 0, 0.588235)
+position = Vector2(-0.5, 8.5)
+scale = Vector2(3, 1)
+texture = ExtResource("5_04evd")
+region_enabled = true
+region_rect = Rect2(1, 7, 3, 1)
+
 [node name="CharacterAnimations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
-autoplay = "char_idle"
 libraries = {
 "": SubResource("AnimationLibrary_c6b67")
 }
+autoplay = "char_idle"
 
 [node name="AttackPool" type="Node2D" parent="." node_paths=PackedStringArray("character_animations")]
 script = ExtResource("5_nvhcl")
@@ -945,7 +969,12 @@ charge_amount = 0.25
 charge_attack = true
 charge_amount = 1.0
 
-[node name="Health" parent="." instance=ExtResource("9_b7gtc")]
+[node name="Health" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("10_t2c6g")]
+health_bar = NodePath("../HealthBar")
+
+[node name="HealthBar" parent="." instance=ExtResource("11_mk1mi")]
+visible = false
+position = Vector2(-10, -12)
 
 [node name="Hurtbox" parent="." instance=ExtResource("10_2sfmd")]
 

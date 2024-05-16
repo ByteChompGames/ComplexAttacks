@@ -970,11 +970,12 @@ charge_attack = true
 charge_amount = 1.0
 
 [node name="Health" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("10_t2c6g")]
+max_health = 2
 health_bar = NodePath("../HealthBar")
 
 [node name="HealthBar" parent="." instance=ExtResource("11_mk1mi")]
 visible = false
-position = Vector2(-10, -12)
+position = Vector2(-5, -18)
 
 [node name="Hurtbox" parent="." instance=ExtResource("10_2sfmd")]
 

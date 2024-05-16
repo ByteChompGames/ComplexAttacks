@@ -840,6 +840,7 @@ shape = SubResource("RectangleShape2D_3gup5")
 [node name="PlayerSprite" parent="." instance=ExtResource("2_xlgp6")]
 material = SubResource("ShaderMaterial_v5v5h")
 position = Vector2(-1, 0)
+animation = &"idle"
 
 [node name="Weapon" parent="PlayerSprite" instance=ExtResource("4_v37j2")]
 material = SubResource("ShaderMaterial_v561k")
@@ -885,7 +886,7 @@ health_bar = NodePath("../HealthBar")
 
 [node name="HealthBar" parent="." instance=ExtResource("12_guqgs")]
 visible = false
-position = Vector2(-10, -12)
+position = Vector2(-5, -18)
 
 [node name="Hurtbox" parent="." instance=ExtResource("11_ry8cj")]
 collision_mask = 1

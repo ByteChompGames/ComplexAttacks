@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://db8q1quxd7spn"]
+
+[ext_resource type="Script" path="res://Characters/Components/Health/heart_gui.gd" id="1_b4wm0"]
+[ext_resource type="PackedScene" uid="uid://bhxya7mcyovsw" path="res://Characters/Components/Health/health_heart.tscn" id="1_ugxkc"]
+
+[node name="HeartGUI" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 10.0
+offset_bottom = 10.0
+script = ExtResource("1_b4wm0")
+
+[node name="HealthHeart" parent="." instance=ExtResource("1_ugxkc")]
+position = Vector2(5, 5)

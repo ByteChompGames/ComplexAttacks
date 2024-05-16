@@ -1,16 +1,19 @@
 extends Node
 class_name Health
 
-@export var max_health : float = 100
+@export var max_health : int = 6
 @export var health_bar : HealthBar
 
-var current_health : float = 0
+var current_health : int = 0
 
 @onready var death_timer = $DeathTimer
 
 # reset health back to starting values
 func reset():
 	current_health = max_health;
+	
+	if health_bar != null:
+		health_bar.set_max_hearts(max_health / 2)
 
 # reduce current health by given value
 func receive_damage(amount : int):
@@ -18,8 +21,7 @@ func receive_damage(amount : int):
 	print(owner.name, " ", current_health, " health remains.")
 	
 	if health_bar != null:
-		var health_ratio = current_health / max_health
-		health_bar.set_health_bar(health_ratio)
+		health_bar.update_hearts(current_health)
 	
 	if current_health <= 0:
 		death_timer.start()

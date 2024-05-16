@@ -94,7 +94,7 @@ func calculate_charge() -> float:
 	# apply percent value to max value
 	var multiplier = charge_force_multiplier * get_charge_percent()
 	# keep the multiplier in an acceptable range of movement
-	multiplier = clamp(multiplier, 0.75, charge_force_multiplier)
+	multiplier = clamp(multiplier, 1, charge_force_multiplier)
 	#return the adjusted value
 	return multiplier
 

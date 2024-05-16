@@ -22,6 +22,7 @@ enum AttackState
 
 @export var attack_move_force : float = 1
 @export var charge_force_multiplier : float = 1.5
+@export var attack_damage_multiplier : float = 2
 @export var attack_deceleration: float = 2
 
 var attack_pool : AttackPool
@@ -60,9 +61,10 @@ func release_attack():
 	character_animations.play(action_anim_name)
 	follow_through_timer.start()
 	state = AttackState.ACTION
-	var charge_multiplier = calculate_charge()
+	var charge_multiplier = calculate_charge(charge_force_multiplier)
+	var attack_multiplier = calculate_charge(attack_damage_multiplier)
 	current_force = attack_move_force * charge_multiplier
-	owner.set_weapon_damage(charge_multiplier)
+	owner.set_weapon_damage(attack_multiplier)
 	owner.charging = false
 	windup_timer.stop()
 
@@ -87,14 +89,14 @@ func get_charge_percent() -> float:
 	return charge_percent
 
 # returns a multiplier to be applied to attack movement and damage
-func calculate_charge() -> float:
+func calculate_charge(force_multiplier : float) -> float:
 	# use max value if wind_up times out
-	if windup_timer.is_stopped(): return charge_force_multiplier
+	if windup_timer.is_stopped(): return force_multiplier
 	
 	# apply percent value to max value
-	var multiplier = charge_force_multiplier * get_charge_percent()
+	var multiplier = force_multiplier * get_charge_percent()
 	# keep the multiplier in an acceptable range of movement
-	multiplier = clamp(multiplier, 1, charge_force_multiplier)
+	multiplier = clamp(multiplier, 1, force_multiplier)
 	#return the adjusted value
 	return multiplier
 
@@ -103,9 +105,10 @@ func _on_windup_time_timeout():
 	character_animations.play(action_anim_name)
 	follow_through_timer.start()
 	state = AttackState.ACTION
-	var charge_multiplier = calculate_charge()
+	var charge_multiplier = calculate_charge(charge_force_multiplier)
+	var attack_multiplier = calculate_charge(attack_damage_multiplier)
 	current_force = attack_move_force * charge_multiplier
-	owner.set_weapon_damage(charge_multiplier)
+	owner.set_weapon_damage(attack_multiplier)
 	owner.flash_sprites(1)
 	owner.charging = false
 

@@ -1,6 +1,8 @@
 extends AttackCharacter
 class_name Player
 
+@export var camera : Camera2D
+
 @onready var character_sprite = $PlayerSprite
 @onready var weapon_sprite = $PlayerSprite/Weapon
 @onready var character_animations = $CharacterAnimations

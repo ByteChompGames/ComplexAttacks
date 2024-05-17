@@ -18,7 +18,6 @@ func reset():
 # reduce current health by given value
 func receive_damage(amount : int):
 	current_health -= amount
-	print(owner.name, " ", current_health, " health remains.")
 	
 	if health_bar != null:
 		health_bar.update_hearts(current_health)

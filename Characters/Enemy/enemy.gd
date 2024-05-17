@@ -4,6 +4,8 @@ class_name Enemy
 @export var attack_range : float = 24
 @export var target : AttackCharacter
 
+var has_target : bool = false
+
 @onready var character_sprite = $EnemySprite
 @onready var weapon_sprite = $EnemySprite/Weapon
 @onready var character_animations = $CharacterAnimations
@@ -16,11 +18,17 @@ func _ready():
 	health.reset()
 
 func _physics_process(delta):
+	# reset state to idle if target lost
+	if has_target and target == null:
+		has_target = false
+		state = CharacterState.IDLE
+	
 	match state:
 		CharacterState.IDLE:
 			set_character_animation(character_animations, "char_idle")
 			
 			if target != null:
+				has_target = true
 				state = CharacterState.MOVE
 			return
 		CharacterState.MOVE:

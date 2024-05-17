@@ -20,6 +20,10 @@ func _ready():
 	spawn_player(player_spawn.position)
 	set_new_spawn_time()
 
+func _process(delta):
+	if player == null:
+		get_tree().reload_current_scene()
+
 func spawn_player(location : Vector2):
 	player = player_scene.instantiate()
 	add_child(player)

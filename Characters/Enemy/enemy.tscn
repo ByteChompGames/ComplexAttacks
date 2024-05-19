@@ -920,6 +920,7 @@ position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_3gup5")
 
 [node name="EnemySprite" parent="." instance=ExtResource("2_052t8")]
+z_index = -2
 material = SubResource("ShaderMaterial_q4dib")
 animation = &"idle_blink"
 autoplay = "run"
@@ -975,6 +976,7 @@ health_bar = NodePath("../HealthBar")
 
 [node name="HealthBar" parent="." instance=ExtResource("11_mk1mi")]
 visible = false
+z_index = -2
 position = Vector2(-5, -18)
 
 [node name="Hurtbox" parent="." instance=ExtResource("10_2sfmd")]

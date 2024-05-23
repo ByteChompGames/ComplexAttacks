@@ -849,6 +849,7 @@ texture = ExtResource("5_7tanl")
 region_rect = Rect2(36, 38, 8, 22)
 
 [node name="CharacterShadow" type="Sprite2D" parent="PlayerSprite"]
+visible = false
 modulate = Color(0, 0, 0, 0.588235)
 position = Vector2(-0.5, 8.5)
 scale = Vector2(3, 1)

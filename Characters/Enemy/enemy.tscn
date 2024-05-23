@@ -932,6 +932,7 @@ material = SubResource("ShaderMaterial_oyp2r")
 collision_layer = 1
 
 [node name="CharacterShadow" type="Sprite2D" parent="EnemySprite"]
+visible = false
 modulate = Color(0, 0, 0, 0.588235)
 position = Vector2(-0.5, 8.5)
 scale = Vector2(3, 1)

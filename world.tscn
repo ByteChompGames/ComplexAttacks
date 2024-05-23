@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfh6w2ybc4sku"]
+[gd_scene load_steps=7 format=3 uid="uid://bfh6w2ybc4sku"]
 
 [ext_resource type="PackedScene" uid="uid://cgfuvj6noq2t0" path="res://Environment/ground_tile_map.tscn" id="1_b5sbi"]
 [ext_resource type="Script" path="res://world.gd" id="1_hcckv"]
 [ext_resource type="PackedScene" uid="uid://ovshmsld1rgi" path="res://Characters/Player/player.tscn" id="2_fyvg4"]
 [ext_resource type="PackedScene" uid="uid://1jv3uafa2xle" path="res://Characters/Enemy/enemy.tscn" id="3_kqtmk"]
 [ext_resource type="Texture2D" uid="uid://bg84yilkuq7g1" path="res://Environment/Bush_Sprite.png" id="5_g76rq"]
+[ext_resource type="Texture2D" uid="uid://bumpaxbx00sem" path="res://Environment/Ground_Tiles.png" id="6_uhvus"]
 
 [node name="World" type="Node2D"]
 position = Vector2(128, 104)
@@ -16,10 +17,26 @@ enemy_scene = ExtResource("3_kqtmk")
 position = Vector2(0, -32)
 zoom = Vector2(5, 5)
 
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+z_index = -10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -145.0
+offset_top = -87.0
+offset_right = 144.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.266667, 0.25098, 0.301961, 1)
+
 [node name="Ground_TileMap" parent="." instance=ExtResource("1_b5sbi")]
 z_index = -3
 position = Vector2(0, -7)
 layer_0/tile_data = PackedInt32Array(131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 131066, 0, 0, 131065, 0, 0, 131064, 0, 0, 65543, 0, 0, 196600, 0, 1, 196601, 0, 1, 196602, 0, 1, 196603, 0, 1, 196604, 0, 1, 196605, 0, 1, 196606, 0, 1, 196607, 0, 1, 131072, 0, 1, 131073, 0, 1, 131074, 0, 1, 131075, 0, 1, 131076, 0, 1, 131077, 0, 1, 131078, 0, 1, 131079, 0, 1, 262136, 0, 2, 262137, 0, 2, 262138, 0, 2, 262139, 0, 2, 262140, 0, 2, 262141, 0, 2, 262142, 0, 2, 262143, 0, 2, 196608, 0, 2, 196609, 0, 2, 196610, 0, 2, 196611, 0, 2, 196612, 0, 2, 196613, 0, 2, 196614, 0, 2, 196615, 0, 2, 131063, 0, 0, 196599, 0, 1, 262135, 0, 2, 65544, 0, 0, 131080, 0, 1, 196616, 0, 2, 65545, 0, 0, 131081, 0, 1, 196617, 0, 2, 131062, 0, 0, 196598, 0, 1, 262134, 0, 2, 65546, 0, 0, 131082, 0, 1, 196618, 0, 2, 131061, 0, 0, 196597, 0, 1, 262133, 0, 2, 65527, 0, 2, -9, 0, 1, -65545, 0, 0, 8, 0, 2, -65528, 0, 1, -131064, 0, 0, 65532, 65536, 3, 65533, 131072, 3, 65534, 196608, 3, 1, 65536, 3, 2, 131072, 3, 3, 196608, 3, 5, 65536, 3, 6, 131072, 3, 7, 196608, 3, 65528, 65536, 3, 65529, 131072, 3, 65530, 196608, 3, -7, 131072, 2, -65543, 131072, 2, -131079, 131072, 2, -196615, 131072, 0, -262151, 131072, 2, -327687, 131072, 2, -393223, 131072, 2, -3, 131072, 2, -65539, 131072, 0, -131075, 131072, 2, -196611, 131072, 2, -262147, 131072, 1, -327683, 131072, 2, -393219, 131072, 2, -65534, 131072, 2, -131070, 131072, 2, -196606, 131072, 2, -262142, 131072, 0, -327678, 131072, 2, -393214, 131072, 1, -458750, 131072, 2, -65530, 131072, 2, -131066, 131072, 1, -196602, 131072, 2, -262138, 131072, 2, -327674, 131072, 2, -393210, 131072, 2, -458746, 131072, 2, -131067, 65536, 1, -262141, 196608, 0, -393215, 65536, 1, -65538, 196608, 0, -196614, 196608, 0, -262148, 65536, 1)
+layer_1/modulate = Color(0.215686, 0.2, 0.235294, 1)
+layer_1/z_index = -2
+layer_1/tile_data = PackedInt32Array(65531, 327680, 3, -5, 327680, 3, -65541, 327680, 3, -131077, 327680, 3, -196613, 327680, 3, -262149, 327680, 3, -327685, 327680, 3, -393221, 327680, 3, -1, 327680, 3, -65537, 327680, 3, -131073, 327680, 3, -196609, 327680, 3, -262145, 327680, 3, -327681, 327680, 3, -393217, 327680, 3, 65535, 327680, 3, -65536, 327680, 3, -131072, 327680, 3, -196608, 327680, 3, -262144, 327680, 3, -327680, 327680, 3, -393216, 327680, 3, -458752, 327680, 3, -65532, 327680, 3, -131068, 327680, 3, -196604, 327680, 3, -262140, 327680, 3, -327676, 327680, 3, -393212, 327680, 3, -458748, 327680, 3, -65542, 262144, 1, -393213, 262144, 1, -196607, 393216, 0, -327686, 262144, 1, -131076, 393216, 0, -327675, 393216, 0, -262146, 262144, 1, 8, 327680, 1, -65528, 327680, 1, -131064, 327680, 1, -196600, 327680, 1, -262136, 327680, 1, -327672, 327680, 1, -393208, 327680, 1, -458744, 327680, 1, -393225, 327680, 1, -327689, 327680, 1, -262153, 327680, 1, -196617, 327680, 1, -131081, 327680, 1, -65545, 327680, 1, -9, 327680, 1, 65527, 327680, 1, -262137, 262144, 1, -131080, 393216, 0)
 
 [node name="PlayerSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(0, 1)
@@ -44,5 +61,68 @@ z_index = -1
 texture_filter = 1
 position = Vector2(-120, -7)
 texture = ExtResource("5_g76rq")
+
+[node name="Bush3" type="Sprite2D" parent="."]
+modulate = Color(0.27451, 0.282353, 0.345098, 1)
+z_index = -5
+texture_filter = 1
+position = Vector2(71, -2)
+texture = ExtResource("6_uhvus")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush4" type="Sprite2D" parent="."]
+modulate = Color(0.27451, 0.282353, 0.345098, 1)
+z_index = -5
+texture_filter = 1
+position = Vector2(1, -2)
+texture = ExtResource("6_uhvus")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush5" type="Sprite2D" parent="."]
+modulate = Color(0.27451, 0.282353, 0.345098, 1)
+z_index = -5
+texture_filter = 1
+position = Vector2(-73, -2)
+texture = ExtResource("6_uhvus")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush6" type="Sprite2D" parent="."]
+modulate = Color(0.231373, 0.223529, 0.270588, 1)
+z_index = -6
+texture_filter = 1
+position = Vector2(37, -1)
+texture = ExtResource("6_uhvus")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush7" type="Sprite2D" parent="."]
+modulate = Color(0.231373, 0.223529, 0.270588, 1)
+z_index = -6
+texture_filter = 1
+position = Vector2(-37, -1)
+texture = ExtResource("6_uhvus")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush8" type="Sprite2D" parent="."]
+modulate = Color(0.231373, 0.223529, 0.270588, 1)
+z_index = -6
+texture_filter = 1
+position = Vector2(107, -1)
+texture = ExtResource("6_uhvus")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush9" type="Sprite2D" parent="."]
+modulate = Color(0.231373, 0.223529, 0.270588, 1)
+z_index = -6
+texture_filter = 1
+position = Vector2(-108, -1)
+texture = ExtResource("6_uhvus")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

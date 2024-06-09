@@ -1,6 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://ovshmsld1rgi"]
+[gd_scene load_steps=32 format=3 uid="uid://ovshmsld1rgi"]
 
 [ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_4a23v"]
+[ext_resource type="PackedScene" uid="uid://bw0gh1r4ww6gu" path="res://Particles/death_particle.tscn" id="2_2i7y2"]
 [ext_resource type="PackedScene" uid="uid://cce63qliq84yr" path="res://Characters/Player/player_sprite.tscn" id="2_xlgp6"]
 [ext_resource type="Shader" path="res://Characters/solid_color.gdshader" id="3_tcww3"]
 [ext_resource type="PackedScene" uid="uid://cy8deqocx5w7c" path="res://Weapon/weapon.tscn" id="4_v37j2"]
@@ -884,6 +885,7 @@ one_shot = true
 
 [node name="Health" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("11_ee5ju")]
 health_bar = NodePath("../HealthBar")
+death_particle = ExtResource("2_2i7y2")
 
 [node name="HealthBar" parent="." instance=ExtResource("12_guqgs")]
 visible = false

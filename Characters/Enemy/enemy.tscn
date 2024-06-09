@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://1jv3uafa2xle"]
+[gd_scene load_steps=31 format=3 uid="uid://1jv3uafa2xle"]
 
 [ext_resource type="Script" path="res://Characters/Enemy/enemy.gd" id="1_1pmg3"]
 [ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Characters/Enemy/enemy_sprite.tscn" id="2_052t8"]
+[ext_resource type="PackedScene" uid="uid://bw0gh1r4ww6gu" path="res://Particles/death_particle.tscn" id="2_trjd3"]
 [ext_resource type="Shader" path="res://Characters/solid_color.gdshader" id="3_cns2v"]
 [ext_resource type="PackedScene" uid="uid://cy8deqocx5w7c" path="res://Weapon/weapon.tscn" id="4_nkfh7"]
 [ext_resource type="Texture2D" uid="uid://dhggt214b3yiv" path="res://Pixel_Particles.png" id="5_04evd"]
@@ -974,6 +975,7 @@ charge_amount = 1.0
 [node name="Health" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("10_t2c6g")]
 max_health = 4
 health_bar = NodePath("../HealthBar")
+death_particle = ExtResource("2_trjd3")
 
 [node name="HealthBar" parent="." instance=ExtResource("11_mk1mi")]
 visible = false

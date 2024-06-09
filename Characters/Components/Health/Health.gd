@@ -3,6 +3,7 @@ class_name Health
 
 @export var max_health : int = 6
 @export var health_bar : HealthBar
+@export var death_particle : PackedScene
 
 var current_health : int = 0
 
@@ -33,5 +34,12 @@ func heal(amount : int):
 		reset()
 
 func _on_death_timer_timeout():
-	if owner != null:
-		owner.queue_free()
+	if(death_particle == null):
+		if owner != null:
+			owner.queue_free()
+	else:
+		var death_vfx = death_particle.instantiate() # instantiate particle
+		get_tree().root.add_child(death_vfx) # set it as a child of the root so it can persist after freeing this object
+		if owner != null:
+			death_vfx.global_position = owner.global_position # set the position to this position
+			owner.queue_free()

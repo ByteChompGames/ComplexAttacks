@@ -1,21 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfh6w2ybc4sku"]
+[gd_scene load_steps=8 format=3 uid="uid://bfh6w2ybc4sku"]
 
 [ext_resource type="PackedScene" uid="uid://cgfuvj6noq2t0" path="res://Environment/ground_tile_map.tscn" id="1_b5sbi"]
 [ext_resource type="Script" path="res://world.gd" id="1_hcckv"]
 [ext_resource type="PackedScene" uid="uid://ovshmsld1rgi" path="res://Characters/Player/player.tscn" id="2_fyvg4"]
 [ext_resource type="PackedScene" uid="uid://1jv3uafa2xle" path="res://Characters/Enemy/enemy.tscn" id="3_kqtmk"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="4_wuvsl"]
 [ext_resource type="Texture2D" uid="uid://bg84yilkuq7g1" path="res://Environment/Bush_Sprite.png" id="5_g76rq"]
 [ext_resource type="Texture2D" uid="uid://bumpaxbx00sem" path="res://Environment/Ground_Tiles.png" id="6_uhvus"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("scene_camera")]
 position = Vector2(128, 104)
 script = ExtResource("1_hcckv")
+scene_camera = NodePath("Camera2D")
 player_scene = ExtResource("2_fyvg4")
 enemy_scene = ExtResource("3_kqtmk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -32)
 zoom = Vector2(5, 5)
+script = ExtResource("4_wuvsl")
+random_strength = 1.0
+shake_fade = 10.0
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D"]
 z_index = -10

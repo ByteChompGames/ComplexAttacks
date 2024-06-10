@@ -1,6 +1,8 @@
 extends Node2D
 class_name World
 
+@export var scene_camera : Camera2D
+
 @export var player_scene : PackedScene
  
 @export var enemy_scene : PackedScene
@@ -28,6 +30,9 @@ func spawn_player(location : Vector2):
 	player = player_scene.instantiate()
 	add_child(player)
 	player.position = location
+	
+	if scene_camera != null:
+		player.camera = scene_camera
 
 func spawn_enemy(location : Vector2):
 	var new_enemy : Enemy = enemy_scene.instantiate()

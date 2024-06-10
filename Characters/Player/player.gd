@@ -36,6 +36,8 @@ func _physics_process(delta):
 		CharacterState.ATTACK:
 			if !charging:
 				attack_pool.release_attack()
+			else:
+				flip_direction(character_sprite, input)
 			return
 		CharacterState.HURT:
 			move_character(self, -hit_direction, knockback_force)
@@ -82,6 +84,7 @@ func receive_hit(damage : float, direction : Vector2):
 	state = CharacterState.HURT
 	set_character_animation(character_animations, "char_hurt")
 	flash_sprites(0.5)
+	camera.apply_shake()
 
 func set_weapon_damage(multiplier):
 	var hitbox = weapon_sprite.hit_box

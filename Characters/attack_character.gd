@@ -30,6 +30,7 @@ func get_direction(character_sprite : AnimatedSprite2D) -> Vector2:
 func move_character(character : CharacterBody2D, direction : Vector2, force : float):
 	character.velocity = direction * force
 	character.move_and_slide()
+	character.global_position.y = 105 # brute force character position to get around bug of characters falling into ground tiles
 
 func set_character_animation(character_animations : AnimationPlayer, animation : String):
 	if character_animations.current_animation == animation: return

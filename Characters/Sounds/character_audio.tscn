@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://by4jart3g2rxt"]
+
+[ext_resource type="Script" path="res://Characters/Sounds/character_audio.gd" id="1_k8oob"]
+[ext_resource type="AudioStream" uid="uid://gswhjw6ccwdc" path="res://Characters/Sounds/Footsteps/sfx_movement_footsteps1a.wav" id="2_467kd"]
+[ext_resource type="AudioStream" uid="uid://bc3r8joqumlma" path="res://Characters/Sounds/Footsteps/sfx_movement_footsteps1b.wav" id="3_vef3b"]
+[ext_resource type="AudioStream" uid="uid://bqq37rlreubj5" path="res://Characters/Sounds/Hurt/sfx_damage_hit3.wav" id="4_2pl6h"]
+[ext_resource type="AudioStream" uid="uid://drxip5jlvebh5" path="res://Characters/Sounds/Charge/sfx_weapon_singleshot1.wav" id="4_q1013"]
+[ext_resource type="AudioStream" uid="uid://qblclonactry" path="res://Characters/Sounds/Hurt/sfx_damage_hit5.wav" id="5_41gfq"]
+[ext_resource type="AudioStream" uid="uid://b2jd8qx7rvv3n" path="res://Characters/Sounds/Attack/hit.ogg" id="5_yax00"]
+[ext_resource type="AudioStream" uid="uid://c54bao882712c" path="res://Characters/Sounds/Hurt/sfx_damage_hit9.wav" id="6_rpoxm"]
+
+[node name="CharacterAudio" type="Node2D"]
+script = ExtResource("1_k8oob")
+footstep_tracks = Array[AudioStream]([ExtResource("2_467kd"), ExtResource("3_vef3b")])
+hurt_tracks = Array[AudioStream]([ExtResource("4_2pl6h"), ExtResource("5_41gfq"), ExtResource("6_rpoxm")])
+
+[node name="FootstepsAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_467kd")
+volume_db = -10.0
+max_distance = 1280.0
+panning_strength = 3.0
+bus = &"Footsteps"
+
+[node name="ChargeUpAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_q1013")
+volume_db = -20.0
+pitch_scale = 0.75
+max_distance = 1280.0
+panning_strength = 3.0
+
+[node name="AttackAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_yax00")
+volume_db = -5.0
+max_distance = 1280.0
+panning_strength = 3.0
+
+[node name="HurtAudio" type="AudioStreamPlayer2D" parent="."]
+volume_db = -5.0
+max_distance = 1280.0
+max_polyphony = 2
+panning_strength = 3.0

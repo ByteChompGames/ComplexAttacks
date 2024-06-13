@@ -12,6 +12,7 @@ var has_target : bool = false
 @onready var attack_pool = $AttackPool
 @onready var health = $Health
 @onready var hit_invul_timer = $HitInvulTimer
+@onready var character_audio = $CharacterAudio
 
 func _ready():
 	character_sprite.play()
@@ -61,6 +62,8 @@ func receive_hit(damage : float, direction : Vector2):
 	attack_pool.interupt_attack()
 	# deal damage
 	health.receive_damage(damage)
+	#play audio
+	character_audio.play_hurt()
 	
 	# setup knockback
 	hit_direction = direction

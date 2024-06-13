@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://1jv3uafa2xle"]
+[gd_scene load_steps=33 format=3 uid="uid://1jv3uafa2xle"]
 
 [ext_resource type="Script" path="res://Characters/Enemy/enemy.gd" id="1_1pmg3"]
 [ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Characters/Enemy/enemy_sprite.tscn" id="2_052t8"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://cy8deqocx5w7c" path="res://Weapon/weapon.tscn" id="4_nkfh7"]
 [ext_resource type="Texture2D" uid="uid://dhggt214b3yiv" path="res://Pixel_Particles.png" id="5_04evd"]
 [ext_resource type="Script" path="res://Attack/AttackPool.gd" id="5_nvhcl"]
+[ext_resource type="PackedScene" uid="uid://by4jart3g2rxt" path="res://Characters/Sounds/character_audio.tscn" id="6_gggyr"]
 [ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="6_ufxkv"]
+[ext_resource type="AudioStream" uid="uid://bc3r8joqumlma" path="res://Characters/Sounds/Footsteps/sfx_movement_footsteps1b.wav" id="7_6afiu"]
 [ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="7_vvngo"]
 [ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="8_uas7d"]
 [ext_resource type="PackedScene" uid="uid://cd8gjyifnvpy7" path="res://Characters/Components/hurtbox.tscn" id="10_2sfmd"]
@@ -147,6 +149,20 @@ tracks/4/keys = {
 }, {
 "args": [false],
 "method": &"toggle_hitbox"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterAudio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_attack"
 }]
 }
 
@@ -322,6 +338,23 @@ tracks/5/keys = {
 "values": [{
 "args": [],
 "method": &"wait_for_charge"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterAudio")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_charge_up"
+}, {
+"args": [],
+"method": &"play_charge_up"
 }]
 }
 
@@ -522,6 +555,35 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterAudio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.166667, 0.500001, 0.833335, 1.16667, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"play_footsteps"
+}, {
+"args": [],
+"method": &"play_footsteps"
+}, {
+"args": [],
+"method": &"play_footsteps"
+}, {
+"args": [],
+"method": &"play_footsteps"
+}, {
+"args": [],
+"method": &"play_footsteps"
+}, {
+"args": [],
+"method": &"play_footsteps"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_t0qdi"]
 resource_name = "char_stab_action"
@@ -590,6 +652,20 @@ tracks/4/keys = {
 }, {
 "args": [true],
 "method": &"toggle_hitbox"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterAudio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_attack"
 }]
 }
 
@@ -672,6 +748,23 @@ tracks/5/keys = {
 "method": &"wait_for_charge"
 }]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterAudio")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_charge_up"
+}, {
+"args": [],
+"method": &"play_charge_up"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_ym0xp"]
 resource_name = "char_swing_action"
@@ -740,6 +833,20 @@ tracks/4/keys = {
 }, {
 "args": [true],
 "method": &"toggle_hitbox"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterAudio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_attack"
 }]
 }
 
@@ -889,6 +996,23 @@ tracks/5/keys = {
 "method": &"wait_for_charge"
 }]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterAudio")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_charge_up"
+}, {
+"args": [],
+"method": &"play_charge_up"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c6b67"]
 _data = {
@@ -923,6 +1047,7 @@ shape = SubResource("RectangleShape2D_3gup5")
 [node name="EnemySprite" parent="." instance=ExtResource("2_052t8")]
 z_index = -2
 material = SubResource("ShaderMaterial_q4dib")
+position = Vector2(-1, 0)
 animation = &"idle_blink"
 autoplay = "run"
 
@@ -947,6 +1072,18 @@ libraries = {
 "": SubResource("AnimationLibrary_c6b67")
 }
 autoplay = "char_idle"
+
+[node name="CharacterAudio" parent="." instance=ExtResource("6_gggyr")]
+footstep_tracks = Array[AudioStream]([ExtResource("7_6afiu")])
+
+[node name="ChargeUpAudio" parent="CharacterAudio" index="1"]
+bus = &"Enemies"
+
+[node name="AttackAudio" parent="CharacterAudio" index="2"]
+bus = &"Enemies"
+
+[node name="HurtAudio" parent="CharacterAudio" index="3"]
+bus = &"Enemies"
 
 [node name="AttackPool" type="Node2D" parent="." node_paths=PackedStringArray("character_animations")]
 script = ExtResource("5_nvhcl")
@@ -997,3 +1134,4 @@ one_shot = true
 [connection signal="timeout" from="HitInvulTimer" to="." method="_on_hit_invul_timer_timeout"]
 
 [editable path="EnemySprite/Weapon"]
+[editable path="CharacterAudio"]

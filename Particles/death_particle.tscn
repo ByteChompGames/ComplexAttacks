@@ -1,7 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bw0gh1r4ww6gu"]
+[gd_scene load_steps=17 format=3 uid="uid://bw0gh1r4ww6gu"]
 
 [ext_resource type="Texture2D" uid="uid://dj5l3nauaa83b" path="res://Anim_Particle_Solid.png" id="1_w3a1w"]
 [ext_resource type="Script" path="res://Particles/particle.gd" id="2_ht1l3"]
+[ext_resource type="AudioStream" uid="uid://ba0ljy4vjd3s" path="res://Characters/Sounds/Death/sfx_exp_short_hard3.wav" id="3_gxtu6"]
+[ext_resource type="AudioStream" uid="uid://b1lsoalplkn1s" path="res://Characters/Sounds/Death/sfx_exp_short_hard6.wav" id="4_ui0px"]
+[ext_resource type="AudioStream" uid="uid://cd7sst2aaxvt1" path="res://Characters/Sounds/Death/sfx_exp_short_hard13.wav" id="5_q71gx"]
+[ext_resource type="AudioStream" uid="uid://bkjsxc6uj11we" path="res://Characters/Sounds/Death/sfx_exp_short_hard14.wav" id="6_xmeth"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7ybnm"]
 particles_animation = true
@@ -72,5 +76,9 @@ explosiveness = 1.0
 script = ExtResource("2_ht1l3")
 play_on_ready = true
 destroy_after_emission = true
+particle_tracks = Array[AudioStream]([ExtResource("3_gxtu6"), ExtResource("4_ui0px"), ExtResource("5_q71gx"), ExtResource("6_xmeth")])
+
+[node name="ParticleAudio" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0
 
 [connection signal="finished" from="." to="." method="_on_finished"]

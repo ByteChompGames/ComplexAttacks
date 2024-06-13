@@ -1099,14 +1099,17 @@ one_shot = true
 
 [node name="OverheadAttack" parent="AttackPool" instance=ExtResource("6_ufxkv")]
 charge_attack = true
+randomize_amount = true
 charge_amount = 1.0
 
 [node name="StabAttack" parent="AttackPool" instance=ExtResource("7_vvngo")]
 charge_attack = true
+randomize_amount = true
 charge_amount = 0.25
 
 [node name="SwingAttack" parent="AttackPool" instance=ExtResource("8_uas7d")]
 charge_attack = true
+randomize_amount = true
 charge_amount = 1.0
 
 [node name="Health" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("10_t2c6g")]

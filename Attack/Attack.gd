@@ -13,6 +13,7 @@ enum AttackState
 
 # - FOR ENEMIES ONLY
 @export var charge_attack : bool = false
+@export var randomize_amount : bool = false
 @export var charge_amount : float = 0
 #
 
@@ -35,6 +36,8 @@ var current_force : float = 0
 func initialize(pool : AttackPool, animation_player : AnimationPlayer):
 	character_animations = animation_player
 	attack_pool = pool
+	if randomize_amount:
+		charge_amount = randf_range(0, 1)
 
 func _physics_process(delta):
 	if state == AttackState.ACTION:

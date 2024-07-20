@@ -180,7 +180,7 @@ tracks/1/path = NodePath("AttackPool/StabAttack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.25),
+"times": PackedFloat32Array(0.2499),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -965,15 +965,13 @@ shape = SubResource("RectangleShape2D_3gup5")
 [node name="PlayerSprite" parent="." instance=ExtResource("2_xlgp6")]
 material = SubResource("ShaderMaterial_v5v5h")
 position = Vector2(-1, 0)
+animation = &"attack_followthrough"
 
 [node name="Weapon" parent="PlayerSprite" instance=ExtResource("4_v37j2")]
 material = SubResource("ShaderMaterial_v561k")
 position = Vector2(-8, -5)
 texture = ExtResource("5_7tanl")
 region_rect = Rect2(36, 38, 8, 22)
-
-[node name="CollisionShape2D" parent="PlayerSprite/Weapon/Hitbox" index="0"]
-visible = false
 
 [node name="CharacterShadow" type="Sprite2D" parent="PlayerSprite"]
 visible = false

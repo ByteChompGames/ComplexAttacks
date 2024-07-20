@@ -42,4 +42,5 @@ func _on_death_timer_timeout():
 		get_tree().root.add_child(death_vfx) # set it as a child of the root so it can persist after freeing this object
 		if owner != null:
 			death_vfx.global_position = owner.global_position # set the position to this position
+			owner.emit_signal_on_death()
 			owner.queue_free()

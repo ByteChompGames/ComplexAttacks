@@ -19,6 +19,7 @@ var player : Player
 var spawn_left : bool = false
 
 func _ready():
+	randomize()
 	spawn_player(player_spawn.position)
 	set_new_spawn_time()
 

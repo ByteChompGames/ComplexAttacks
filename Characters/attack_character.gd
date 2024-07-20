@@ -51,3 +51,6 @@ func set_weapon_damage(multiplier):
 
 func set_knockback_force(multiplier):
 	knockback_force = base_knockback_force * multiplier
+
+func emit_signal_on_death():
+	pass

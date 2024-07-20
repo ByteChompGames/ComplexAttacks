@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://b56ayymtyii1f"]
+
+[ext_resource type="Script" path="res://GUI/gui.gd" id="1_f2tq4"]
+[ext_resource type="FontFile" uid="uid://cvpgmcxav50nq" path="res://Fonts/Minecraft.ttf" id="2_bh0sx"]
+[ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Characters/Enemy/Enemy_Character_Sheet.png" id="2_kevwi"]
+[ext_resource type="Texture2D" uid="uid://be1dpiujbifes" path="res://GUI/Clock_Icon.png" id="4_lt57f"]
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f2tq4")
+
+[node name="GameTime" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = 16.0
+offset_right = -10.0
+offset_bottom = 48.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("2_bh0sx")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]000[/center]"
+
+[node name="EnemyCount" type="RichTextLabel" parent="."]
+layout_mode = 1
+offset_left = 48.0
+offset_top = 16.0
+offset_right = 96.0
+offset_bottom = 48.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("2_bh0sx")
+theme_override_font_sizes/normal_font_size = 24
+text = "00"
+
+[node name="Enemy" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(24, 21)
+scale = Vector2(2, 2)
+texture = ExtResource("2_kevwi")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Clock" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1200, 24)
+scale = Vector2(2, 2)
+texture = ExtResource("4_lt57f")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 18)

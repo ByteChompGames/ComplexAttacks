@@ -2,6 +2,7 @@ extends AttackCharacter
 class_name Enemy
 
 @export var attack_range : float = 24
+@export var attack_range_limits : Vector2
 @export var target : AttackCharacter
 
 var has_target : bool = false
@@ -17,6 +18,7 @@ var has_target : bool = false
 func _ready():
 	character_sprite.play()
 	health.reset()
+	set_attack_range()
 
 func _physics_process(delta):
 	# reset state to idle if target lost
@@ -54,6 +56,9 @@ func _physics_process(delta):
 				knockback_force = 0
 				state = CharacterState.IDLE
 			return
+
+func set_attack_range():
+	attack_range = randf_range(attack_range_limits.x, attack_range_limits.y)
 
 func receive_hit(damage : float, direction : Vector2):
 	# invulnerable to hits if already reacting to a hit
@@ -108,6 +113,8 @@ func continue_combo():
 	# continue to next attack
 	attack_pool.attack_buffered = true
 
+func emit_signal_on_death():
+	GlobalSignals.emit_signal("enemy_death")
 
 func _on_hit_invul_timer_timeout():
 	invulnerable = false

@@ -956,7 +956,10 @@ size = Vector2(10, 10)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_4a23v")
+state = null
 move_speed = 50.0
+knockback_deceleration = null
+base_knockback_force = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 1)

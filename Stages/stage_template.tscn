@@ -1,0 +1,345 @@
+[gd_scene load_steps=19 format=3 uid="uid://dk5gaovtom64c"]
+
+[ext_resource type="Script" path="res://Stages/stage.gd" id="1_fetg6"]
+[ext_resource type="PackedScene" uid="uid://ovshmsld1rgi" path="res://Characters/Player/player.tscn" id="2_pqx7t"]
+[ext_resource type="PackedScene" uid="uid://1jv3uafa2xle" path="res://Characters/Enemy/enemy.tscn" id="3_2o8ch"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="4_1m5sj"]
+[ext_resource type="Texture2D" uid="uid://cmkwrpyxf10lt" path="res://Characters/Enemy/Enemy_Character_Sheet.png" id="5_w5kga"]
+[ext_resource type="Texture2D" uid="uid://be1dpiujbifes" path="res://GUI/Clock_Icon.png" id="6_kfmah"]
+[ext_resource type="Script" path="res://GUI/gui.gd" id="7_2rb7g"]
+[ext_resource type="FontFile" uid="uid://cvpgmcxav50nq" path="res://Fonts/Minecraft.ttf" id="8_7dsus"]
+[ext_resource type="Texture2D" uid="uid://b47oi50ldfllb" path="res://GUI/Arrow.png" id="9_5lir5"]
+[ext_resource type="PackedScene" uid="uid://cgfuvj6noq2t0" path="res://Environment/ground_tile_map.tscn" id="9_ijifx"]
+[ext_resource type="Texture2D" uid="uid://bg84yilkuq7g1" path="res://Environment/Bush_Sprite.png" id="10_3lhwp"]
+[ext_resource type="Texture2D" uid="uid://bumpaxbx00sem" path="res://Environment/Ground_Tiles.png" id="11_xn07u"]
+
+[sub_resource type="Animation" id="Animation_l7w7l"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3jvxr"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vmtlp"]
+resource_name = "exit_arrow_loop"
+length = 1.00003
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExitArrow:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5poqq"]
+_data = {
+"exit_arrow_loop": SubResource("Animation_vmtlp"),
+"fade_in": SubResource("Animation_l7w7l"),
+"fade_out": SubResource("Animation_3jvxr")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sf003"]
+size = Vector2(31, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_af87d"]
+size = Vector2(20, 144)
+
+[node name="StageTemplate" type="Node2D" node_paths=PackedStringArray("scene_camera")]
+position = Vector2(128, 104)
+script = ExtResource("1_fetg6")
+next_scene = "res://Stages/stage_template.tscn"
+scene_camera = NodePath("Camera2D")
+player_scene = ExtResource("2_pqx7t")
+enemy_scene = ExtResource("3_2o8ch")
+
+[node name="ExitStageDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="StageAnimator" type="AnimationPlayer" parent="."]
+root_node = NodePath("../GUI")
+libraries = {
+"": SubResource("AnimationLibrary_5poqq")
+}
+
+[node name="StageExit" type="Area2D" parent="."]
+position = Vector2(143, 0)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StageExit"]
+position = Vector2(17.5, -31)
+shape = SubResource("RectangleShape2D_sf003")
+
+[node name="EdgeBlockerRight" type="StaticBody2D" parent="."]
+position = Vector2(138, 0)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EdgeBlockerRight"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_af87d")
+
+[node name="EdgeBlockerLeft" type="StaticBody2D" parent="."]
+position = Vector2(-138, 0)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EdgeBlockerLeft"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_af87d")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -32)
+zoom = Vector2(5, 5)
+script = ExtResource("4_1m5sj")
+random_strength = 1.0
+shake_fade = 10.0
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+z_index = -10
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -88.0
+offset_right = 143.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.266667, 0.25098, 0.301961, 1)
+
+[node name="EnemyIcon" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-115, -92)
+texture = ExtResource("5_w5kga")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="ClockIcon" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(86, -92)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_kfmah")
+region_rect = Rect2(0, 0, 16, 18)
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -104.0
+offset_right = -28.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.56, 1.44)
+script = ExtResource("7_2rb7g")
+
+[node name="GameTime" type="Label" parent="GUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -13.0
+offset_top = 6.0
+offset_right = 34.0
+offset_bottom = 29.0
+grow_horizontal = 0
+scale = Vector2(0.265624, 0.361111)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("8_7dsus")
+text = "00:00"
+
+[node name="EnemyCount" type="Label" parent="GUI"]
+texture_filter = 1
+layout_mode = 1
+offset_left = 9.375
+offset_top = 6.94444
+offset_right = 49.375
+offset_bottom = 29.9445
+scale = Vector2(0.265624, 0.361111)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("8_7dsus")
+text = "0"
+
+[node name="Seconds" type="Timer" parent="GUI"]
+autostart = true
+
+[node name="ColorRect" type="ColorRect" parent="GUI"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ExitArrow" type="TextureRect" parent="GUI"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 82.4219
+offset_top = 34.7222
+offset_right = 98.4219
+offset_bottom = 66.7222
+texture = ExtResource("9_5lir5")
+expand_mode = 1
+
+[node name="PlayerSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, 1)
+
+[node name="EnemyLeftSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(-148, 1)
+
+[node name="EnemyRightSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(148, 1)
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ForestStage" type="Node2D" parent="."]
+
+[node name="Ground_TileMap" parent="ForestStage" instance=ExtResource("9_ijifx")]
+z_index = -3
+position = Vector2(0, -7)
+layer_0/tile_data = PackedInt32Array(131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 131066, 0, 0, 131065, 0, 0, 131064, 0, 0, 65543, 0, 0, 196600, 0, 1, 196601, 0, 1, 196602, 0, 1, 196603, 0, 1, 196604, 0, 1, 196605, 0, 1, 196606, 0, 1, 196607, 0, 1, 131072, 0, 1, 131073, 0, 1, 131074, 0, 1, 131075, 0, 1, 131076, 0, 1, 131077, 0, 1, 131078, 0, 1, 131079, 0, 1, 262136, 0, 2, 262137, 0, 2, 262138, 0, 2, 262139, 0, 2, 262140, 0, 2, 262141, 0, 2, 262142, 0, 2, 262143, 0, 2, 196608, 0, 2, 196609, 0, 2, 196610, 0, 2, 196611, 0, 2, 196612, 0, 2, 196613, 0, 2, 196614, 0, 2, 196615, 0, 2, 131063, 0, 0, 196599, 0, 1, 262135, 0, 2, 65544, 0, 0, 131080, 0, 1, 196616, 0, 2, 65545, 0, 0, 131081, 0, 1, 196617, 0, 2, 131062, 0, 0, 196598, 0, 1, 262134, 0, 2, 65546, 0, 0, 131082, 0, 1, 196618, 0, 2, 131061, 0, 0, 196597, 0, 1, 262133, 0, 2, 65532, 65536, 3, 65533, 131072, 3, 65534, 196608, 3, 1, 65536, 3, 2, 131072, 3, 3, 196608, 3, 5, 65536, 3, 6, 131072, 3, 7, 196608, 3, 65528, 65536, 3, 65529, 131072, 3, 65530, 196608, 3, -7, 131072, 2, -65543, 131072, 2, -131079, 131072, 2, -196615, 131072, 0, -262151, 131072, 2, -327687, 131072, 2, -393223, 131072, 2, -3, 131072, 2, -65539, 131072, 0, -131075, 131072, 2, -196611, 131072, 2, -262147, 131072, 1, -327683, 131072, 2, -393219, 131072, 2, -65534, 131072, 2, -131070, 131072, 2, -196606, 131072, 2, -262142, 131072, 0, -327678, 131072, 2, -393214, 131072, 1, -458750, 131072, 2, -65530, 131072, 2, -131066, 131072, 1, -196602, 131072, 2, -262138, 131072, 2, -327674, 131072, 2, -393210, 131072, 2, -458746, 131072, 2, -131067, 65536, 1, -262141, 196608, 0, -393215, 65536, 1, -65538, 196608, 0, -196614, 196608, 0, -262148, 65536, 1)
+layer_1/modulate = Color(0.215686, 0.2, 0.235294, 1)
+layer_1/z_index = -2
+layer_1/tile_data = PackedInt32Array(65531, 327680, 3, -5, 327680, 3, -65541, 327680, 3, -131077, 327680, 3, -196613, 327680, 3, -262149, 327680, 3, -327685, 327680, 3, -393221, 327680, 3, -1, 327680, 3, -65537, 327680, 3, -131073, 327680, 3, -196609, 327680, 3, -262145, 327680, 3, -327681, 327680, 3, -393217, 327680, 3, 65535, 327680, 3, -65536, 327680, 3, -131072, 327680, 3, -196608, 327680, 3, -262144, 327680, 3, -327680, 327680, 3, -393216, 327680, 3, -458752, 327680, 3, -65532, 327680, 3, -131068, 327680, 3, -196604, 327680, 3, -262140, 327680, 3, -327676, 327680, 3, -393212, 327680, 3, -458748, 327680, 3, -65542, 262144, 1, -393213, 262144, 1, -196607, 393216, 0, -327686, 262144, 1, -131076, 393216, 0, -327675, 393216, 0, -262146, 262144, 1, 8, 327680, 1, -65528, 327680, 1, -131064, 327680, 1, -196600, 327680, 1, -262136, 327680, 1, -327672, 327680, 1, -393208, 327680, 1, -458744, 327680, 1, -393225, 327680, 1, -327689, 327680, 1, -262153, 327680, 1, -196617, 327680, 1, -131081, 327680, 1, -65545, 327680, 1, -9, 327680, 1, 65527, 327680, 1, -262137, 262144, 1, -131080, 393216, 0)
+
+[node name="Bush" type="Sprite2D" parent="ForestStage"]
+z_index = -1
+texture_filter = 1
+position = Vector2(120, -7)
+texture = ExtResource("10_3lhwp")
+
+[node name="Bush2" type="Sprite2D" parent="ForestStage"]
+z_index = -1
+texture_filter = 1
+position = Vector2(-120, -7)
+texture = ExtResource("10_3lhwp")
+
+[node name="Bush3" type="Sprite2D" parent="ForestStage"]
+modulate = Color(0.27451, 0.282353, 0.345098, 1)
+z_index = -5
+texture_filter = 1
+position = Vector2(71, -2)
+texture = ExtResource("11_xn07u")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush4" type="Sprite2D" parent="ForestStage"]
+modulate = Color(0.27451, 0.282353, 0.345098, 1)
+z_index = -5
+texture_filter = 1
+position = Vector2(1, -2)
+texture = ExtResource("11_xn07u")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush5" type="Sprite2D" parent="ForestStage"]
+modulate = Color(0.27451, 0.282353, 0.345098, 1)
+z_index = -5
+texture_filter = 1
+position = Vector2(-73, -2)
+texture = ExtResource("11_xn07u")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush6" type="Sprite2D" parent="ForestStage"]
+modulate = Color(0.231373, 0.223529, 0.270588, 1)
+z_index = -6
+texture_filter = 1
+position = Vector2(37, -1)
+texture = ExtResource("11_xn07u")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush7" type="Sprite2D" parent="ForestStage"]
+modulate = Color(0.231373, 0.223529, 0.270588, 1)
+z_index = -6
+texture_filter = 1
+position = Vector2(-37, -1)
+texture = ExtResource("11_xn07u")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush8" type="Sprite2D" parent="ForestStage"]
+modulate = Color(0.231373, 0.223529, 0.270588, 1)
+z_index = -6
+texture_filter = 1
+position = Vector2(107, -1)
+texture = ExtResource("11_xn07u")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[node name="Bush9" type="Sprite2D" parent="ForestStage"]
+modulate = Color(0.231373, 0.223529, 0.270588, 1)
+z_index = -6
+texture_filter = 1
+position = Vector2(-108, -1)
+texture = ExtResource("11_xn07u")
+region_enabled = true
+region_rect = Rect2(48, 64, 48, 32)
+
+[connection signal="timeout" from="ExitStageDelay" to="." method="_on_exit_stage_delay_timeout"]
+[connection signal="body_entered" from="StageExit" to="." method="_on_stage_exit_body_entered"]
+[connection signal="timeout" from="GUI/Seconds" to="GUI" method="_on_seconds_timeout"]
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

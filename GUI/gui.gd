@@ -3,10 +3,11 @@ extends Control
 signal enemy_death
 
 var time_passed : int = 0
-var enemies_killed : int = 0
+var enemies_left : int = 0
 
 @onready var game_time = $GameTime
 @onready var enemy_count = $EnemyCount
+@onready var seconds = $Seconds
 
 func _ready():
 	GlobalSignals.connect("enemy_death", Callable(self, "on_enemy_death"))
@@ -24,5 +25,11 @@ func time_to_minutes_secs_mili(time : int):
 	return str("%0*d" % [2, mins]) + ":" + str("%0*d" % [2, secs])
 
 func on_enemy_death():
-	enemies_killed += 1
-	enemy_count.text = str(enemies_killed)
+	enemies_left -= 1
+	set_enemy_counter()
+	
+	if enemies_left <= 0:
+		seconds.stop()
+
+func set_enemy_counter():
+	enemy_count.text = str(enemies_left)

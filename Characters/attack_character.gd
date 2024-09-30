@@ -6,8 +6,10 @@ enum CharacterState
 	IDLE,
 	MOVE,
 	ATTACK,
-	HURT
+	HURT,
+	LOCKED
 }
+
 @export var state = CharacterState.MOVE
 @export var move_speed : float = 100
 @export var knockback_deceleration : float = 75

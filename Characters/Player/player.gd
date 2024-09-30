@@ -49,6 +49,8 @@ func _physics_process(delta):
 				knockback_force = 0
 				state = CharacterState.IDLE
 			return
+		CharacterState.LOCKED:
+			return
 
 # inputs
 func move_input() -> float:
@@ -97,7 +99,6 @@ func set_weapon_damage(multiplier):
 func flash_sprites(alpha : float):
 	character_sprite.flash_sprite(alpha)
 	weapon_sprite.flash_sprite(alpha)
-
 
 func _on_hit_invul_timer_timeout():
 	invulnerable = false

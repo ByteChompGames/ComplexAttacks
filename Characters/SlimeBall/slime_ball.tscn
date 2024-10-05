@@ -1,0 +1,75 @@
+[gd_scene load_steps=14 format=3 uid="uid://c7nk8dsdqfdvk"]
+
+[ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Characters/Enemy/enemy_sprite.tscn" id="1_3x3ad"]
+[ext_resource type="Script" path="res://Characters/SlimeBall/slime_ball.gd" id="1_o3hqh"]
+[ext_resource type="Shader" path="res://Characters/solid_color.gdshader" id="2_x7sj1"]
+[ext_resource type="SpriteFrames" uid="uid://dv14o40n4tf6c" path="res://Characters/SlimeBall/slimeball_sprite_frames.tres" id="3_eo30h"]
+[ext_resource type="PackedScene" uid="uid://cy8deqocx5w7c" path="res://Weapon/weapon.tscn" id="4_exbeo"]
+[ext_resource type="PackedScene" uid="uid://uvt7rrb0wuvt" path="res://Characters/Components/Health/health.tscn" id="5_2dnbd"]
+[ext_resource type="PackedScene" uid="uid://bw0gh1r4ww6gu" path="res://Particles/death_particle.tscn" id="6_38x4t"]
+[ext_resource type="PackedScene" uid="uid://qvldivnrjiwb" path="res://Characters/Components/Health/health_bar.tscn" id="7_5x6rh"]
+[ext_resource type="PackedScene" uid="uid://cd8gjyifnvpy7" path="res://Characters/Components/hurtbox.tscn" id="8_aiijo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj358"]
+size = Vector2(11, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uw2i"]
+resource_local_to_scene = true
+shader = ExtResource("2_x7sj1")
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vp1mt"]
+resource_local_to_scene = true
+shader = ExtResource("2_x7sj1")
+shader_parameter/flash_color = Color(1, 1, 1, 0)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wbx2g"]
+size = Vector2(11, 8)
+
+[node name="SlimeBall" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_o3hqh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 3)
+shape = SubResource("RectangleShape2D_vj358")
+
+[node name="EnemySprite2" parent="." instance=ExtResource("1_3x3ad")]
+material = SubResource("ShaderMaterial_8uw2i")
+sprite_frames = ExtResource("3_eo30h")
+animation = &"idle"
+
+[node name="Weapon" parent="EnemySprite2" instance=ExtResource("4_exbeo")]
+material = SubResource("ShaderMaterial_vp1mt")
+position = Vector2(0, 0)
+texture = null
+
+[node name="CollisionShape2D" parent="EnemySprite2/Weapon/Hitbox" index="0"]
+position = Vector2(-0.5, 3)
+
+[node name="CharacterAnimations" type="AnimationPlayer" parent="."]
+
+[node name="Health" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("5_2dnbd")]
+max_health = 1
+health_bar = NodePath("../HealthBar")
+death_particle = ExtResource("6_38x4t")
+
+[node name="HealthBar" parent="." instance=ExtResource("7_5x6rh")]
+visible = false
+z_index = -2
+position = Vector2(-5, -18)
+
+[node name="Hurtbox" parent="." instance=ExtResource("8_aiijo")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-0.5, 3)
+shape = SubResource("RectangleShape2D_wbx2g")
+
+[node name="HitInvulTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[editable path="EnemySprite2/Weapon"]

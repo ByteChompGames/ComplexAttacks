@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://lc4vah6mkbgk"
-path="res://.godot/imported/SimeBall_Character_Sheet.png-70f502c58ddc306cddd5e99944f5ddef.ctex"
+path="res://.godot/imported/SimeBall_Character_Sheet.png-86144b5402b07f26d546a228f3bf5d66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/Enemy/SimeBall_Character_Sheet.png"
-dest_files=["res://.godot/imported/SimeBall_Character_Sheet.png-70f502c58ddc306cddd5e99944f5ddef.ctex"]
+source_file="res://Characters/SlimeBall/SimeBall_Character_Sheet.png"
+dest_files=["res://.godot/imported/SimeBall_Character_Sheet.png-86144b5402b07f26d546a228f3bf5d66.ctex"]
 
 [params]
 

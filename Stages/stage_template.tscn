@@ -13,6 +13,24 @@
 [ext_resource type="Texture2D" uid="uid://bg84yilkuq7g1" path="res://Environment/Bush_Sprite.png" id="10_3lhwp"]
 [ext_resource type="Texture2D" uid="uid://bumpaxbx00sem" path="res://Environment/Ground_Tiles.png" id="11_xn07u"]
 
+[sub_resource type="Animation" id="Animation_vmtlp"]
+resource_name = "exit_arrow_loop"
+length = 1.00003
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExitArrow:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
 [sub_resource type="Animation" id="Animation_l7w7l"]
 resource_name = "fade_in"
 tracks/0/type = "value"
@@ -65,24 +83,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_vmtlp"]
-resource_name = "exit_arrow_loop"
-length = 1.00003
-loop_mode = 1
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ExitArrow:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5poqq"]

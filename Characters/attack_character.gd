@@ -35,6 +35,8 @@ func move_character(character : CharacterBody2D, direction : Vector2, force : fl
 	character.global_position.y = 105 # brute force character position to get around bug of characters falling into ground tiles
 
 func set_character_animation(character_animations : AnimationPlayer, animation : String):
+	if character_animations == null: return
+	
 	if character_animations.current_animation == animation: return
 	else:
 		character_animations.current_animation = animation

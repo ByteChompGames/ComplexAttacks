@@ -9,6 +9,8 @@ enum AttackState
 	RECOVER
 }
 
+signal attack_end
+
 @export var state = AttackState.OFF
 
 # - FOR ENEMIES ONLY
@@ -73,6 +75,7 @@ func release_attack():
 
 func end_attack():
 	owner.set_state(0)
+	attack_end.emit()
 	attack_pool.combo_count = 0
 	state = AttackState.OFF
 	owner.weapon_sprite.toggle_hitbox(false)

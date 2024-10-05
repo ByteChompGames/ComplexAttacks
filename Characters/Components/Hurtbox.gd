@@ -1,6 +1,8 @@
 extends Area2D
 class_name Hurtbox
 
+signal on_hurt
+
 func _ready():
 	connect("area_entered", Callable( self, "_on_area_entered"))
 
@@ -19,3 +21,4 @@ func _on_area_entered(hitbox : Hitbox):
 		var knockback_mulitplier = hitbox.damage / hitbox.base_damage
 		owner.set_knockback_force(knockback_mulitplier)
 		owner.receive_hit(hitbox.damage, hit_direction.normalized())
+		on_hurt.emit()

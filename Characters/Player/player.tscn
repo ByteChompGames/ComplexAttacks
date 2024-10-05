@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ovshmsld1rgi"]
+[gd_scene load_steps=39 format=3 uid="uid://ovshmsld1rgi"]
 
 [ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_4a23v"]
 [ext_resource type="PackedScene" uid="uid://bw0gh1r4ww6gu" path="res://Particles/death_particle.tscn" id="2_2i7y2"]
@@ -13,9 +13,14 @@
 [ext_resource type="PackedScene" uid="uid://by4jart3g2rxt" path="res://Characters/Sounds/character_audio.tscn" id="7_swpsy"]
 [ext_resource type="AudioStream" uid="uid://gswhjw6ccwdc" path="res://Characters/Sounds/Footsteps/sfx_movement_footsteps1a.wav" id="8_qhi41"]
 [ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="8_wbdyx"]
+[ext_resource type="PackedScene" uid="uid://cm7f8lyx7rsqo" path="res://FSM/state_machine.tscn" id="9_aiy17"]
+[ext_resource type="PackedScene" uid="uid://5giqg33ucuij" path="res://FSM/States/idle_state.tscn" id="10_6y6fm"]
 [ext_resource type="PackedScene" uid="uid://uvt7rrb0wuvt" path="res://Characters/Components/Health/health.tscn" id="11_ee5ju"]
+[ext_resource type="PackedScene" uid="uid://2umrashcos2m" path="res://FSM/States/move_state.tscn" id="11_nbn12"]
 [ext_resource type="PackedScene" uid="uid://cd8gjyifnvpy7" path="res://Characters/Components/hurtbox.tscn" id="11_ry8cj"]
+[ext_resource type="PackedScene" uid="uid://b22n2a64k2r37" path="res://FSM/States/attack_state.tscn" id="12_3oev0"]
 [ext_resource type="PackedScene" uid="uid://qvldivnrjiwb" path="res://Characters/Components/Health/health_bar.tscn" id="12_guqgs"]
+[ext_resource type="PackedScene" uid="uid://bub5mvq47gvwj" path="res://FSM/States/hurt_state.tscn" id="13_p4gw8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
@@ -956,10 +961,7 @@ size = Vector2(10, 10)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_4a23v")
-state = null
 move_speed = 50.0
-knockback_deceleration = null
-base_knockback_force = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 1)
@@ -1007,6 +1009,18 @@ bus = &"Player"
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
 
+[node name="StateMachine" parent="." node_paths=PackedStringArray("player", "initial_state") instance=ExtResource("9_aiy17")]
+player = NodePath("..")
+initial_state = NodePath("Idle")
+
+[node name="Idle" parent="StateMachine" instance=ExtResource("10_6y6fm")]
+
+[node name="Move" parent="StateMachine" instance=ExtResource("11_nbn12")]
+
+[node name="Attack" parent="StateMachine" instance=ExtResource("12_3oev0")]
+
+[node name="Hurt" parent="StateMachine" instance=ExtResource("13_p4gw8")]
+
 [node name="AttackPool" type="Node2D" parent="." node_paths=PackedStringArray("character_animations")]
 script = ExtResource("5_guph4")
 character_animations = NodePath("../CharacterAnimations")
@@ -1044,6 +1058,10 @@ shape = SubResource("RectangleShape2D_vqcv3")
 
 [connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
 [connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]
+[connection signal="attack_end" from="AttackPool/OverheadAttack" to="StateMachine" method="_on_overhead_attack_attack_end"]
+[connection signal="attack_end" from="AttackPool/StabAttack" to="StateMachine" method="_on_stab_attack_attack_end"]
+[connection signal="attack_end" from="AttackPool/SwingAttack" to="StateMachine" method="_on_swing_attack_attack_end"]
+[connection signal="on_hurt" from="Hurtbox" to="StateMachine" method="_on_hurtbox_on_hurt"]
 [connection signal="timeout" from="HitInvulTimer" to="." method="_on_hit_invul_timer_timeout"]
 
 [editable path="PlayerSprite/Weapon"]

@@ -7,8 +7,8 @@ class_name HealthBar
 @onready var active_timer = $ActiveTimer
 
 
-func set_max_hearts(max : int):
-	for i in range(max):
+func set_max_hearts(max_hearts : int):
+	for i in range(max_hearts):
 		var heart = heart_gui_class.instantiate()
 		heart_container.add_child(heart)
 

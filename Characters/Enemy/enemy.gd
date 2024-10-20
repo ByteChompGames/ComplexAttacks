@@ -24,38 +24,40 @@ func _physics_process(delta):
 	# reset state to idle if target lost
 	if has_target and target == null:
 		has_target = false
-		state = CharacterState.IDLE
-	
-	match state:
-		CharacterState.IDLE:
-			set_character_animation(character_animations, "char_idle")
-			
-			if target != null:
-				has_target = true
-				state = CharacterState.MOVE
-			return
-		CharacterState.MOVE:
-			set_character_animation(character_animations, "char_run")
-			# move the enemy towards the target
-			var move_direction = target.global_position - global_position
-			move_character(self, move_direction.normalized(), move_speed)
-			flip_direction(character_sprite, move_direction.normalized().x)
-			#attack if in range
-			if abs(move_direction.x) < attack_range:
-				state = CharacterState.ATTACK
-				attack_pool.perform_attack()
-			return
-		CharacterState.ATTACK:
-			return
-		CharacterState.HURT:
-			move_character(self, -hit_direction, knockback_force)
-			knockback_force -= knockback_deceleration * delta
-			flip_direction(character_sprite, hit_direction.x)
-			
-			if knockback_force < 0:
-				knockback_force = 0
-				state = CharacterState.IDLE
-			return
+	#
+	#match state:
+		#CharacterState.IDLE:
+			#set_character_animation(character_animations, "char_idle")
+			#
+			#if target != null:
+				#has_target = true
+				#state = CharacterState.MOVE
+			#return
+		#CharacterState.MOVE:
+			#set_character_animation(character_animations, "char_run")
+			## move the enemy towards the target
+			#var move_direction = target.global_position - global_position
+			#move_character(self, move_direction.normalized(), move_speed)
+			#flip_direction(character_sprite, move_direction.normalized().x)
+			##attack if in range
+			#if abs(move_direction.x) < attack_range:
+				#state = CharacterState.ATTACK
+				#attack_pool.perform_attack()
+			#return
+		#CharacterState.ATTACK:
+			#return
+		#CharacterState.HURT:
+			#move_character(self, -hit_direction, knockback_force)
+			#knockback_force -= knockback_deceleration * delta
+			#flip_direction(character_sprite, hit_direction.x)
+			#
+			#if knockback_force < 0:
+				#knockback_force = 0
+				#state = CharacterState.IDLE
+			#return
+
+func play_character_animation(anim_name : String):
+	set_character_animation(character_animations, anim_name)
 
 func set_attack_range():
 	attack_range = randf_range(attack_range_limits.x, attack_range_limits.y)

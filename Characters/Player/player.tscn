@@ -13,14 +13,14 @@
 [ext_resource type="PackedScene" uid="uid://by4jart3g2rxt" path="res://Characters/Sounds/character_audio.tscn" id="7_swpsy"]
 [ext_resource type="AudioStream" uid="uid://gswhjw6ccwdc" path="res://Characters/Sounds/Footsteps/sfx_movement_footsteps1a.wav" id="8_qhi41"]
 [ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="8_wbdyx"]
-[ext_resource type="PackedScene" uid="uid://cm7f8lyx7rsqo" path="res://FSM/state_machine.tscn" id="9_aiy17"]
-[ext_resource type="PackedScene" uid="uid://5giqg33ucuij" path="res://FSM/States/idle_state.tscn" id="10_6y6fm"]
+[ext_resource type="PackedScene" uid="uid://cm7f8lyx7rsqo" path="res://FSM/Player/state_machine.tscn" id="9_p34o7"]
+[ext_resource type="PackedScene" uid="uid://5giqg33ucuij" path="res://FSM/Player/States/idle_state.tscn" id="10_ixbmq"]
 [ext_resource type="PackedScene" uid="uid://uvt7rrb0wuvt" path="res://Characters/Components/Health/health.tscn" id="11_ee5ju"]
-[ext_resource type="PackedScene" uid="uid://2umrashcos2m" path="res://FSM/States/move_state.tscn" id="11_nbn12"]
+[ext_resource type="PackedScene" uid="uid://2umrashcos2m" path="res://FSM/Player/States/move_state.tscn" id="11_ovcqf"]
 [ext_resource type="PackedScene" uid="uid://cd8gjyifnvpy7" path="res://Characters/Components/hurtbox.tscn" id="11_ry8cj"]
-[ext_resource type="PackedScene" uid="uid://b22n2a64k2r37" path="res://FSM/States/attack_state.tscn" id="12_3oev0"]
 [ext_resource type="PackedScene" uid="uid://qvldivnrjiwb" path="res://Characters/Components/Health/health_bar.tscn" id="12_guqgs"]
-[ext_resource type="PackedScene" uid="uid://bub5mvq47gvwj" path="res://FSM/States/hurt_state.tscn" id="13_p4gw8"]
+[ext_resource type="PackedScene" uid="uid://b22n2a64k2r37" path="res://FSM/Player/States/attack_state.tscn" id="12_u5e5f"]
+[ext_resource type="PackedScene" uid="uid://bub5mvq47gvwj" path="res://FSM/Player/States/hurt_state.tscn" id="13_476np"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
@@ -970,7 +970,7 @@ shape = SubResource("RectangleShape2D_3gup5")
 [node name="PlayerSprite" parent="." instance=ExtResource("2_xlgp6")]
 material = SubResource("ShaderMaterial_v5v5h")
 position = Vector2(-1, 0)
-animation = &"attack_followthrough"
+animation = &"attack_action"
 
 [node name="Weapon" parent="PlayerSprite" instance=ExtResource("4_v37j2")]
 material = SubResource("ShaderMaterial_v561k")
@@ -1009,17 +1009,17 @@ bus = &"Player"
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("player", "initial_state") instance=ExtResource("9_aiy17")]
+[node name="StateMachine" parent="." node_paths=PackedStringArray("player", "initial_state") instance=ExtResource("9_p34o7")]
 player = NodePath("..")
 initial_state = NodePath("Idle")
 
-[node name="Idle" parent="StateMachine" instance=ExtResource("10_6y6fm")]
+[node name="Idle" parent="StateMachine" instance=ExtResource("10_ixbmq")]
 
-[node name="Move" parent="StateMachine" instance=ExtResource("11_nbn12")]
+[node name="Move" parent="StateMachine" instance=ExtResource("11_ovcqf")]
 
-[node name="Attack" parent="StateMachine" instance=ExtResource("12_3oev0")]
+[node name="Attack" parent="StateMachine" instance=ExtResource("12_u5e5f")]
 
-[node name="Hurt" parent="StateMachine" instance=ExtResource("13_p4gw8")]
+[node name="Hurt" parent="StateMachine" instance=ExtResource("13_476np")]
 
 [node name="AttackPool" type="Node2D" parent="." node_paths=PackedStringArray("character_animations")]
 script = ExtResource("5_guph4")

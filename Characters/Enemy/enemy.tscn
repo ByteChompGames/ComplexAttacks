@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://1jv3uafa2xle"]
+[gd_scene load_steps=38 format=3 uid="uid://1jv3uafa2xle"]
 
 [ext_resource type="Script" path="res://Characters/Enemy/enemy.gd" id="1_1pmg3"]
 [ext_resource type="PackedScene" uid="uid://c0ukihyqh0pjk" path="res://Characters/Enemy/enemy_sprite.tscn" id="2_052t8"]
@@ -11,10 +11,15 @@
 [ext_resource type="PackedScene" uid="uid://da1ae740kxrni" path="res://Attack/overhead_attack.tscn" id="6_ufxkv"]
 [ext_resource type="AudioStream" uid="uid://bc3r8joqumlma" path="res://Characters/Sounds/Footsteps/sfx_movement_footsteps1b.wav" id="7_6afiu"]
 [ext_resource type="PackedScene" uid="uid://cwnqionajh1t" path="res://Attack/stab_attack.tscn" id="7_vvngo"]
+[ext_resource type="PackedScene" uid="uid://b04q3gqoq83am" path="res://FSM/Enemies/enemy_state_machine.tscn" id="8_mn63h"]
 [ext_resource type="PackedScene" uid="uid://bo1poeeldb61o" path="res://Attack/swing_attack.tscn" id="8_uas7d"]
+[ext_resource type="PackedScene" uid="uid://chsw4gjfrblwy" path="res://FSM/Enemies/States/enemy_idle_state.tscn" id="9_5v62i"]
 [ext_resource type="PackedScene" uid="uid://cd8gjyifnvpy7" path="res://Characters/Components/hurtbox.tscn" id="10_2sfmd"]
+[ext_resource type="PackedScene" uid="uid://b26w7gsgycg1q" path="res://FSM/Enemies/States/enemy_move_state.tscn" id="10_h7vbn"]
 [ext_resource type="PackedScene" uid="uid://uvt7rrb0wuvt" path="res://Characters/Components/Health/health.tscn" id="10_t2c6g"]
 [ext_resource type="PackedScene" uid="uid://qvldivnrjiwb" path="res://Characters/Components/Health/health_bar.tscn" id="11_mk1mi"]
+[ext_resource type="PackedScene" uid="uid://b5ukvhhtskwv8" path="res://FSM/Enemies/States/enemy_attack_state.tscn" id="11_wvlwx"]
+[ext_resource type="PackedScene" uid="uid://dq0by05mj5yyq" path="res://FSM/Enemies/States/enemy_hurt_state.tscn" id="12_hvwr3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
@@ -1100,6 +1105,18 @@ bus = &"Enemies"
 [node name="HurtAudio" parent="CharacterAudio" index="3"]
 bus = &"Enemies"
 
+[node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("enemy", "initial_state") instance=ExtResource("8_mn63h")]
+enemy = NodePath("..")
+initial_state = NodePath("Idle")
+
+[node name="Idle" parent="EnemyStateMachine" instance=ExtResource("9_5v62i")]
+
+[node name="Move" parent="EnemyStateMachine" instance=ExtResource("10_h7vbn")]
+
+[node name="Attack" parent="EnemyStateMachine" instance=ExtResource("11_wvlwx")]
+
+[node name="Hurt" parent="EnemyStateMachine" instance=ExtResource("12_hvwr3")]
+
 [node name="AttackPool" type="Node2D" parent="." node_paths=PackedStringArray("character_animations")]
 script = ExtResource("5_nvhcl")
 character_animations = NodePath("../CharacterAnimations")
@@ -1149,6 +1166,10 @@ one_shot = true
 
 [connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
 [connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]
+[connection signal="attack_end" from="AttackPool/OverheadAttack" to="EnemyStateMachine" method="_on_overhead_attack_attack_end"]
+[connection signal="attack_end" from="AttackPool/StabAttack" to="EnemyStateMachine" method="_on_stab_attack_attack_end"]
+[connection signal="attack_end" from="AttackPool/SwingAttack" to="EnemyStateMachine" method="_on_swing_attack_attack_end"]
+[connection signal="on_hurt" from="Hurtbox" to="EnemyStateMachine" method="_on_hurtbox_on_hurt"]
 [connection signal="timeout" from="HitInvulTimer" to="." method="_on_hit_invul_timer_timeout"]
 
 [editable path="EnemySprite/Weapon"]

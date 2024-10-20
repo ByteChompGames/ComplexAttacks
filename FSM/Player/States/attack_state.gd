@@ -22,6 +22,7 @@ func physics_update(_delta : float):
 func _input(event):
 	if event.is_action_pressed("attack"):
 		player.attack_pool.buffer_attack()
+		player.charging = true
 	
 	if event.is_action_released("attack"):
 		player.charging = false

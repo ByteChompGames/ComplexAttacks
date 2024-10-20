@@ -1,6 +1,6 @@
 extends Node
 
-@export var player : Player
+@export var enemy : Enemy
 @export var initial_state : State
 
 var current_state : State
@@ -11,7 +11,7 @@ func _ready():
 		if child is State:
 			states[child.name.to_lower()] = child
 			child.Transitioned.connect(on_child_transitioned)
-			child.player = player
+			child.enemy = enemy
 	
 	if initial_state:
 		initial_state.enter()
@@ -44,11 +44,6 @@ func on_child_transitioned(state, new_state_name):
 	
 	new_state.enter()
 	current_state = new_state
-
-func _input(event):
-	if event.is_action_pressed("attack"):
-		current_state.on_attack_transition()
-
 
 func _on_overhead_attack_attack_end():
 	current_state.on_attack_end_transition()

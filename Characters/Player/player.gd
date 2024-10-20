@@ -6,7 +6,6 @@ class_name Player
 @onready var character_sprite = $PlayerSprite
 @onready var weapon_sprite = $PlayerSprite/Weapon
 @onready var character_animations = $CharacterAnimations
-@onready var state_machine = $StateMachine
 @onready var attack_pool = $AttackPool
 @onready var health = $Health
 @onready var hit_invul_timer = $HitInvulTimer

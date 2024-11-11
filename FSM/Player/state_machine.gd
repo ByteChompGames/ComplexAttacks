@@ -40,18 +40,14 @@ func on_child_transitioned(state, new_state_name):
 	if current_state:
 		current_state.exit()
 	
-	print(owner.name, " transitioned from - ", current_state.name, " to - ", new_state.name)
+	# - uncomment to debug state transitions
+	#print(owner.name, " transitioned from - ", current_state.name, " to - ", new_state.name)
 	
 	new_state.enter()
 	current_state = new_state
 
-func _input(event):
-	if event.is_action_pressed("attack"):
-		current_state.on_attack_transition()
-
 func _on_overhead_attack_attack_end():
 	current_state.on_attack_end_transition()
-
 
 func _on_stab_attack_attack_end():
 	current_state.on_attack_end_transition()
@@ -60,4 +56,4 @@ func _on_swing_attack_attack_end():
 	current_state.on_attack_end_transition()
 
 func _on_hurtbox_on_hurt():
-	current_state.Transitioned.emit(current_state, "hurt")
+	current_state.on_hurt_transition()

@@ -23,5 +23,11 @@ func on_attack_transition():
 func on_attack_end_transition():
 	Transitioned.emit(self, "idle")
 
+func on_block_transition():
+	Transitioned.emit(self, "block")
+
+func on_hurt_transition():
+	pass
+
 func on_target_null_transition():
 	pass

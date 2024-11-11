@@ -18,3 +18,12 @@ func physics_update(_delta : float):
 	
 	if input == 0:
 		Transitioned.emit(self, "idle")
+
+func _input(event):
+	if event.is_action_pressed("attack"):
+		on_attack_transition()
+	if event.is_action_pressed("block"):
+		on_block_transition()
+
+func on_hurt_transition():
+	Transitioned.emit(self, "hurt")

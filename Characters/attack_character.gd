@@ -19,6 +19,8 @@ var charging : bool = false
 var knockback_force : float = 50
 var hit_direction : Vector2 = Vector2.ZERO
 var invulnerable = false
+var in_parry : bool = false
+var in_block : bool = false
 
 func flip_direction( character_sprite : AnimatedSprite2D, direction : float):
 	if direction > 0:
@@ -42,7 +44,7 @@ func set_character_animation(character_animations : AnimationPlayer, animation :
 		character_animations.current_animation = animation
 
 func set_state(stateID : int):
-	state = stateID
+	state = stateID as CharacterState
 
 func play_hurt_animation():
 	pass

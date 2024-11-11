@@ -10,6 +10,7 @@ class_name Player
 @onready var health = $Health
 @onready var hit_invul_timer = $HitInvulTimer
 @onready var character_audio = $CharacterAudio
+@onready var parry_timer = $ParryTimer
 
 func _ready():
 	character_sprite.play()
@@ -27,24 +28,26 @@ func move_input() -> float:
 func receive_hit(damage : float, direction : Vector2):
 	# invulnerable to hits if already reacting to a hit
 	if invulnerable: return 
-	# cancel attack
-	attack_pool.interupt_attack()
-	# deal damage
-	health.receive_damage(damage)
+	
 	#play audio
 	character_audio.play_hurt()
 	# setup knockback
 	hit_direction = direction
 	knockback_force = 50
 	
-	invulnerable = true
-	hit_invul_timer.start()
-	
-	# enter hurt state
-	state = CharacterState.HURT
-	set_character_animation(character_animations, "char_hurt")
-	flash_sprites(0.5)
-	camera.apply_shake()
+	if !in_block:
+		# deal damage
+		health.receive_damage(damage)
+		
+		invulnerable = true
+		hit_invul_timer.start()
+		
+		# cancel attack
+		attack_pool.interupt_attack()
+		
+		set_character_animation(character_animations, "char_hurt")
+		flash_sprites(0.5)
+		camera.apply_shake()
 
 func set_weapon_damage(multiplier):
 	var hitbox = weapon_sprite.hit_box
@@ -57,3 +60,6 @@ func flash_sprites(alpha : float):
 
 func _on_hit_invul_timer_timeout():
 	invulnerable = false
+
+func _on_parry_timer_timeout():
+	in_parry = false

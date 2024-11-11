@@ -1164,6 +1164,8 @@ shape = SubResource("RectangleShape2D_t2hcu")
 wait_time = 0.25
 one_shot = true
 
+[connection signal="was_blocked" from="EnemySprite/Weapon/Hitbox" to="Hurtbox" method="_on_hitbox_was_blocked"]
+[connection signal="was_parried" from="EnemySprite/Weapon/Hitbox" to="Hurtbox" method="_on_hitbox_was_parried"]
 [connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
 [connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]
 [connection signal="attack_end" from="AttackPool/OverheadAttack" to="EnemyStateMachine" method="_on_overhead_attack_attack_end"]

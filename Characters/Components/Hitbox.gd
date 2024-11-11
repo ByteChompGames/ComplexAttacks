@@ -1,6 +1,10 @@
 extends Area2D
 class_name Hitbox
 
+signal was_parried(direction : Vector2)
+
+signal was_blocked(direction : Vector2)
+
 @export var base_damage : int = 1
 
 

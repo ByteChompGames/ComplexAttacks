@@ -17,3 +17,9 @@ func physics_update(_delta : float):
 	if player.knockback_force < 0:
 		player.knockback_force = 0
 		Transitioned.emit(self, "idle")
+
+func on_block_transition():
+	pass
+
+func on_hurt_transition():
+	Transitioned.emit(self, "hurt")

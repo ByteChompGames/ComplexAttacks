@@ -10,6 +10,7 @@ func exit():
 	pass
 
 func physics_update(_delta : float):
+	if enemy.target == null: return
 	# move the enemy towards the target
 	var move_direction = enemy.target.global_position - enemy.global_position
 	enemy.move_character(enemy, move_direction.normalized(), enemy.move_speed)

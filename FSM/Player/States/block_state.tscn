@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://3tk5uqb5vcwg"]
+
+[ext_resource type="Script" path="res://FSM/Player/States/block_state.gd" id="1_pec11"]
+
+[node name="Block" type="Node"]
+script = ExtResource("1_pec11")

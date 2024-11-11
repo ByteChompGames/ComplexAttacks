@@ -23,6 +23,11 @@ func _input(event):
 	if event.is_action_pressed("attack"):
 		player.attack_pool.buffer_attack()
 		player.charging = true
-	
 	if event.is_action_released("attack"):
 		player.charging = false
+	if event.is_action_pressed("block"):
+		player.attack_pool.interupt_attack()
+		on_block_transition()
+
+func on_hurt_transition():
+	Transitioned.emit(self, "hurt")

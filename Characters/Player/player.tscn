@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://ovshmsld1rgi"]
+[gd_scene load_steps=41 format=3 uid="uid://ovshmsld1rgi"]
 
 [ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_4a23v"]
 [ext_resource type="PackedScene" uid="uid://bw0gh1r4ww6gu" path="res://Particles/death_particle.tscn" id="2_2i7y2"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://qvldivnrjiwb" path="res://Characters/Components/Health/health_bar.tscn" id="12_guqgs"]
 [ext_resource type="PackedScene" uid="uid://b22n2a64k2r37" path="res://FSM/Player/States/attack_state.tscn" id="12_u5e5f"]
 [ext_resource type="PackedScene" uid="uid://bub5mvq47gvwj" path="res://FSM/Player/States/hurt_state.tscn" id="13_476np"]
+[ext_resource type="PackedScene" uid="uid://3tk5uqb5vcwg" path="res://FSM/Player/States/block_state.tscn" id="14_14omy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gup5"]
 size = Vector2(12, 12)
@@ -322,6 +323,72 @@ tracks/5/keys = {
 "args": [],
 "method": &"play_charge_up"
 }]
+}
+
+[sub_resource type="Animation" id="Animation_e3we4"]
+resource_name = "char_block"
+length = 3.00005
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"attack_windup", &"attack_windup"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerSprite:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerSprite/Weapon:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, -3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite/Weapon:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.698132]
 }
 
 [sub_resource type="Animation" id="Animation_ble36"]
@@ -944,6 +1011,7 @@ _data = {
 "char_attack_action": SubResource("Animation_n010v"),
 "char_attack_recover": SubResource("Animation_ln5q5"),
 "char_attack_windup": SubResource("Animation_tbi3i"),
+"char_block": SubResource("Animation_e3we4"),
 "char_hurt": SubResource("Animation_ble36"),
 "char_idle": SubResource("Animation_a2dxk"),
 "char_run": SubResource("Animation_j6r6c"),
@@ -970,7 +1038,7 @@ shape = SubResource("RectangleShape2D_3gup5")
 [node name="PlayerSprite" parent="." instance=ExtResource("2_xlgp6")]
 material = SubResource("ShaderMaterial_v5v5h")
 position = Vector2(-1, 0)
-animation = &"attack_action"
+animation = &"attack_windup"
 
 [node name="Weapon" parent="PlayerSprite" instance=ExtResource("4_v37j2")]
 material = SubResource("ShaderMaterial_v561k")
@@ -1021,6 +1089,8 @@ initial_state = NodePath("Idle")
 
 [node name="Hurt" parent="StateMachine" instance=ExtResource("13_476np")]
 
+[node name="Block" parent="StateMachine" instance=ExtResource("14_14omy")]
+
 [node name="AttackPool" type="Node2D" parent="." node_paths=PackedStringArray("character_animations")]
 script = ExtResource("5_guph4")
 character_animations = NodePath("../CharacterAnimations")
@@ -1056,6 +1126,10 @@ shape = SubResource("RectangleShape2D_vqcv3")
 
 [node name="HitInvulTimer" type="Timer" parent="."]
 
+[node name="ParryTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="AttackPool/ComboTimer" to="AttackPool" method="_on_combo_timer_timeout"]
 [connection signal="timeout" from="AttackPool/AttackBuffer" to="AttackPool" method="_on_attack_buffer_timeout"]
 [connection signal="attack_end" from="AttackPool/OverheadAttack" to="StateMachine" method="_on_overhead_attack_attack_end"]
@@ -1063,6 +1137,7 @@ shape = SubResource("RectangleShape2D_vqcv3")
 [connection signal="attack_end" from="AttackPool/SwingAttack" to="StateMachine" method="_on_swing_attack_attack_end"]
 [connection signal="on_hurt" from="Hurtbox" to="StateMachine" method="_on_hurtbox_on_hurt"]
 [connection signal="timeout" from="HitInvulTimer" to="." method="_on_hit_invul_timer_timeout"]
+[connection signal="timeout" from="ParryTimer" to="." method="_on_parry_timer_timeout"]
 
 [editable path="PlayerSprite/Weapon"]
 [editable path="CharacterAudio"]

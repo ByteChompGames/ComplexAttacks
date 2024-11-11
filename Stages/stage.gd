@@ -45,6 +45,9 @@ func _process(delta):
 			exit_stage_delay.start()
 			stage_animator.play("fade_out")
 
+func play_stage_number_fade():
+	stage_animator.play("fade_out_stage_number")
+
 func spawn_player(location : Vector2):
 	player = player_scene.instantiate()
 	add_child(player)

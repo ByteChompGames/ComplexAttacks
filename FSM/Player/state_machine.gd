@@ -41,7 +41,7 @@ func on_child_transitioned(state, new_state_name):
 		current_state.exit()
 	
 	# - uncomment to debug state transitions
-	#print(owner.name, " transitioned from - ", current_state.name, " to - ", new_state.name)
+	print(owner.name, " transitioned from - ", current_state.name, " to - ", new_state.name)
 	
 	new_state.enter()
 	current_state = new_state

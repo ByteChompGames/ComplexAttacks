@@ -16,7 +16,6 @@ func physics_update(_delata : float):
 	pass
 
 # Transitions
-
 func on_attack_transition():
 	Transitioned.emit(self, "attack")
 

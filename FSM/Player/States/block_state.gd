@@ -11,12 +11,7 @@ func enter():
 	player.flash_sprites(0.5)
 	player.knockback_force = 0
 
-func exit():
-	pass
-
 func physics_update(_delta : float):
-	print("Parry = ", player.in_parry, ". Block = ", player.in_block)
-	
 	if player.knockback_force > 0:
 		player.move_character(player, -player.hit_direction, player.knockback_force)
 		player.knockback_force -= player.knockback_deceleration * _delta
@@ -28,7 +23,9 @@ func _input(event):
 		on_attack_transition()
 	if event.is_action_released("block"):
 		Transitioned.emit(self, "idle")
-		player.in_block = false
+
+func on_attack_end_transition():
+	pass
 
 func on_hurt_transition():
-	pass
+	Transitioned.emit(self, "hurt")

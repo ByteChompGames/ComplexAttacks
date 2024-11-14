@@ -58,9 +58,6 @@ func release_attack():
 	current_attack.release_attack()
 
 func perform_attack():
-	# put the character in the attack state
-	owner.set_state(2)
-	
 	# if the attack was buffered, reset the buffer
 	if attack_buffered:
 		attack_buffered = false

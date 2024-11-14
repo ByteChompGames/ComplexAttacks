@@ -1,16 +1,6 @@
 extends CharacterBody2D
 class_name AttackCharacter
 
-enum CharacterState
-{
-	IDLE,
-	MOVE,
-	ATTACK,
-	HURT,
-	LOCKED
-}
-
-@export var state = CharacterState.MOVE
 @export var move_speed : float = 100
 @export var knockback_deceleration : float = 75
 @export var base_knockback_force : float = 50
@@ -42,9 +32,6 @@ func set_character_animation(character_animations : AnimationPlayer, animation :
 	if character_animations.current_animation == animation: return
 	else:
 		character_animations.current_animation = animation
-
-func set_state(stateID : int):
-	state = stateID as CharacterState
 
 func play_hurt_animation():
 	pass

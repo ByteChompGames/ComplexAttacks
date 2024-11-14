@@ -49,7 +49,6 @@ func receive_hit(damage : float, direction : Vector2):
 	hit_invul_timer.start()
 	
 	# enter hurt state
-	state = CharacterState.HURT
 	set_character_animation(character_animations, "char_hurt")
 	flash_sprites(0.5)
 
@@ -94,7 +93,6 @@ func _on_hit_invul_timer_timeout():
 func was_parried(direction : Vector2):
 	set_knockback_force(1)
 	receive_hit(0, direction)
-
 
 func was_blocked(direction):
 	set_knockback_force(0.25)

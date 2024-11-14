@@ -52,7 +52,6 @@ func spawn_player(location : Vector2):
 	player = player_scene.instantiate()
 	add_child(player)
 	player.position = location
-	player.state = AttackCharacter.CharacterState.IDLE
 	if scene_camera != null:
 		player.camera = scene_camera
 
@@ -99,6 +98,5 @@ func _on_exit_stage_delay_timeout():
 	exit_stage()
 
 func _on_stage_exit_body_entered(body):
-	player.state = AttackCharacter.CharacterState.LOCKED
 	exit_stage_delay.start()
 	stage_animator.play("fade_out")

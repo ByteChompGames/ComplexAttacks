@@ -74,7 +74,6 @@ func release_attack():
 	windup_timer.stop()
 
 func end_attack():
-	owner.set_state(0)
 	attack_end.emit()
 	attack_pool.combo_count = 0
 	state = AttackState.OFF

@@ -35,19 +35,8 @@ func receive_hit(damage : float, direction : Vector2):
 	hit_direction = direction
 	knockback_force = 50
 	
-	if !in_block:
-		# deal damage
-		health.receive_damage(damage)
-		
-		invulnerable = true
-		hit_invul_timer.start()
-		
-		# cancel attack
-		attack_pool.interupt_attack()
-		
-		set_character_animation(character_animations, "char_hurt")
-		flash_sprites(0.5)
-		camera.apply_shake()
+	# deal damage
+	health.receive_damage(damage)
 
 func set_weapon_damage(multiplier):
 	var hitbox = weapon_sprite.hit_box

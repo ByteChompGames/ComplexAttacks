@@ -18,24 +18,36 @@ func _on_area_entered(hitbox : Hitbox):
 		#get the direction of the hit
 		var hit_direction = hitbox.character.global_position - owner.global_position
 		hit_direction.y = 0
-		# if attack parried, ignore hit and send signal to attacker
-		if owner.in_parry:
-			hitbox.was_parried.emit(-hit_direction.normalized())
-			return
-		#otherwise, hit has landed.
-		# get the knockback force of the hit.
-		var knockback_mulitplier = hitbox.damage / hitbox.base_damage
-		owner.set_knockback_force(knockback_mulitplier)
-		# if blocking, reduce damage before recieving hit
-		if owner.in_block:
-			hitbox.was_blocked.emit(-hit_direction.normalized())
-			owner.receive_hit(hitbox.damage / 2, hit_direction.normalized())
-			on_hurt.emit()
-		else:
+		
+		# recieve hit as normal if not blocking
+		if !owner.in_block:
 			# send message to owner to recieve the hit
 			owner.receive_hit(hitbox.damage, hit_direction.normalized())
 			on_hurt.emit()
-
+			return
+		else:
+			# is the owner blocking in the direction of the attack
+			var block_angle = hit_direction.dot(owner.get_direction(owner.character_sprite))
+			print(block_angle)
+			
+			# if not facing attack, block was unsuccessful
+			if block_angle <= 0:
+				owner.receive_hit(hitbox.damage, hit_direction.normalized())
+				on_hurt.emit()
+				return
+			else:
+				# if attack parried, ignore hit and send signal to attacker
+				if owner.in_parry:
+					hitbox.was_parried.emit(-hit_direction.normalized())
+					return
+				else:
+					# attack was blocked
+					# get the knockback force of the hit.
+					var knockback_mulitplier = hitbox.damage as float / hitbox.base_damage as float
+					owner.set_knockback_force(knockback_mulitplier)
+					# call the attack to be blocked
+					hitbox.was_blocked.emit(-hit_direction.normalized())
+					owner.receive_hit(0, hit_direction.normalized())
 
 func _on_hitbox_was_blocked(direction):
 	owner.was_blocked(direction)
